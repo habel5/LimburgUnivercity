@@ -1,96 +1,119 @@
+# LimburgUnivercity
 
-# Vraag en aanbod website
+LimburgUnivercity is een website waarop organisaties een toelichting of vraag kunnen plaatsen. Andere gebruikers kunnen daarop reageren met een voorstel of idee.
 
-Deze app is geëxporteerd uit Figma AI en opgeschoond zodat je er gewoon in een code editor aan kunt werken en hem kunt uploaden naar GitHub.
+De website heeft:
+- een homepage
+- een overzicht van alle toelichtingen
+- een detailpagina per toelichting
+- een formulier om een nieuwe toelichting te plaatsen
+- een formulier om een voorstel in te dienen
+- een admingedeelte voor beheer
 
-De originele Figma-file staat hier:
-[Vraag en aanbod website](https://www.figma.com/design/2pl4grdIbv6arH9lSLAvi9/Vraag-en-aanbod-website)
+## Waarvoor is dit project?
 
-## Project starten
+Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische uitdagingen. Een organisatie plaatst een toelichting en bezoekers kunnen daarop reageren.
 
-1. Installeer dependencies:
+Bij een nieuwe toelichting gebeurt het volgende:
+- de toelichting wordt opgeslagen
+- de beheerder kan daar een melding van krijgen
+- de gebruiker kan een bevestigingsmail ontvangen
+
+## Hoe open je de website lokaal op je eigen computer?
+
+Als je de website lokaal wilt bekijken, volg dan deze stappen.
+
+### Stap 1. Open het project in je code editor
+
+Open de map van dit project in bijvoorbeeld Visual Studio Code.
+
+### Stap 2. Open de terminal
+
+Open in je editor de terminal.
+
+### Stap 3. Installeer de benodigde bestanden
+
+Voer dit commando uit:
 
 ```bash
 npm install
 ```
 
-2. Maak een lokaal `.env` bestand op basis van `.env.example`.
+Dit zorgt ervoor dat alle benodigde onderdelen van het project worden binnengehaald.
 
-3. Start de development server:
+### Stap 4. Controleer het `.env` bestand
 
-```bash
-npm run dev
-```
+In de hoofdmap van het project hoort een `.env` bestand te staan.
 
-## Handige scripts
-
-- `npm run dev` start Vite lokaal
-- `npm run build` maakt een productiebuild
-- `npm run preview` previewt de build lokaal
-- `npm run typecheck` controleert TypeScript in je editor/CI
-
-## Documentatie en bewijs
-
-- [CHANGELOG.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/CHANGELOG.md) bevat de projectmijlpalen
-- [EVIDENCE.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/EVIDENCE.md) bevat een beknopt bewijs- en opleveroverzicht
-
-## Klaarmaken voor GitHub
-
-Deze export is aangepast zodat:
-
-- er nog maar een hoofdproject op root-niveau is
-- editor-configuratie op root staat
-- gevoelige Supabase-config via `.env` loopt
-- `.gitignore` voorkomt dat lokale bestanden mee gecommit worden
-
-Gebruik daarna:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin <jouw-github-repo-url>
-git push -u origin main
-```
-
-## Database koppelen
-
-Deze app praat met een Supabase Edge Function en die slaat data op in een eenvoudige `kv_store_09c2210b` tabel.
-
-1. Maak in Supabase een project aan.
-2. Voer de SQL uit uit [supabase/setup.sql](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/supabase/setup.sql).
-3. Zet in je lokale `.env`:
+Daarin staan de gegevens om verbinding te maken met de database:
 
 ```bash
 VITE_SUPABASE_PROJECT_ID=je-project-id
 VITE_SUPABASE_ANON_KEY=je-anon-key
 ```
 
-4. Deploy de edge function uit [supabase/functions/make-server-09c2210b/index.ts](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/supabase/functions/make-server-09c2210b/index.ts) met Supabase CLI.
-5. Zet deze secrets op de function:
+Je kunt ook `.env.example` als voorbeeld gebruiken.
+
+### Stap 5. Start de website
+
+Voer dit commando uit:
 
 ```bash
-SUPABASE_URL=https://<project-id>.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=<service-role-key>
-ADMIN_EMAIL=<jouw-admin-email>
-ADMIN_PASSWORD=<jouw-admin-wachtwoord>
-RESEND_API_KEY=<optioneel>
+npm run dev
 ```
 
-Voorbeeldcommando's:
+Daarna verschijnt in de terminal een lokaal webadres, meestal:
 
 ```bash
-supabase login
-supabase link --project-ref <project-id>
-supabase db push
-supabase secrets set SUPABASE_URL=https://<project-id>.supabase.co
-supabase secrets set SUPABASE_SERVICE_ROLE_KEY=<service-role-key>
-supabase secrets set ADMIN_EMAIL=<jouw-admin-email>
-supabase secrets set ADMIN_PASSWORD=<jouw-admin-wachtwoord>
-supabase functions deploy make-server-09c2210b
+http://localhost:3000/
 ```
 
-Voor het deployen heb je ook een persoonlijke Supabase access token nodig voor de CLI:
-`Supabase Dashboard > Account > Access Tokens`.
-  
+Soms is poort `3000` al in gebruik. Dan kiest het project automatisch bijvoorbeeld:
+
+```bash
+http://localhost:3001/
+```
+
+Open dat adres in je browser om de website te bekijken.
+
+## Handige commando's
+
+```bash
+npm run dev
+```
+Start de website lokaal.
+
+```bash
+npm run build
+```
+Controleert of het project klaar is om als productieversie gebouwd te worden.
+
+```bash
+npm run preview
+```
+Toont de gebouwde versie lokaal.
+
+```bash
+npm run typecheck
+```
+Controleert of er fouten in de code zitten.
+
+## Belangrijke mappen
+
+- `src/` bevat de website zelf
+- `src/components/` bevat de pagina’s en onderdelen van de interface
+- `supabase/` bevat de koppeling met de database en backendlogica
+
+## Belangrijke pagina’s
+
+- `/` homepage
+- `/toelichtingen` overzichtspagina
+- `/listing/:id` detailpagina van een toelichting
+- `/add` pagina om een toelichting toe te voegen
+- `/listing/:id/submit-proposal` pagina om een voorstel in te dienen
+- `/admin` beheerpagina
+
+## Extra documentatie
+
+- [CHANGELOG.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/CHANGELOG.md)
+- [EVIDENCE.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/EVIDENCE.md)
