@@ -29,6 +29,11 @@ npm run dev
 - `npm run preview` previewt de build lokaal
 - `npm run typecheck` controleert TypeScript in je editor/CI
 
+## Documentatie en bewijs
+
+- [CHANGELOG.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/CHANGELOG.md) bevat de projectmijlpalen
+- [EVIDENCE.md](/Users/dannyhabel/Downloads/Vraag en aanbod website (4)/EVIDENCE.md) bevat een beknopt bewijs- en opleveroverzicht
+
 ## Klaarmaken voor GitHub
 
 Deze export is aangepast zodat:
