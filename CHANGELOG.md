@@ -10,7 +10,7 @@ Alle noemenswaardige wijzigingen in dit project worden hier bijgehouden.
 - Supabase projectkoppeling voor frontend via `.env`
 - Deploybare Supabase Edge Function in `supabase/functions/make-server-09c2210b/`
 - Database-migratie voor `kv_store_09c2210b`
-- E-mailflow voor adminmelding en gebruikersbevestiging bij nieuwe toelichtingen
+- E-mailflow voor adminmelding en gebruikersbevestiging bij nieuwe cases
 
 ### Changed
 - Figma AI export opgeschoond naar een normale Vite/React projectstructuur

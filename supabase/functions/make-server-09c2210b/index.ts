@@ -199,7 +199,7 @@ app.get("/make-server-09c2210b/stats", async (c) => {
     return c.json({
       challenges: challenges.length,
       proposals: proposals.length,
-      municipalities: 5,
+      municipalities: 31,
     });
   } catch (error) {
     console.error("Error fetching stats:", error);
@@ -288,17 +288,43 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
       overig: "Overig",
     };
     const municipalityNames: Record<string, string> = {
+      beek: "Beek",
+      beekdaelen: "Beekdaelen",
+      beesel: "Beesel",
+      bergen: "Bergen",
+      brunssum: "Brunssum",
+      "echt-susteren": "Echt-Susteren",
+      "eijsden-margraten": "Eijsden-Margraten",
+      gennep: "Gennep",
+      "gulpen-wittem": "Gulpen-Wittem",
       maastricht: "Maastricht",
+      meerssen: "Meerssen",
+      "mook-en-middelaar": "Mook en Middelaar",
+      nederweert: "Nederweert",
+      "peel-en-maas": "Peel en Maas",
+      roerdalen: "Roerdalen",
+      simpelveld: "Simpelveld",
+      stein: "Stein",
+      vaals: "Vaals",
+      "valkenburg-aan-de-geul": "Valkenburg aan de Geul",
       heerlen: "Heerlen",
+      "horst-aan-de-maas": "Horst aan de Maas",
+      kerkrade: "Kerkrade",
+      landgraaf: "Landgraaf",
+      leudal: "Leudal",
+      maasgouw: "Maasgouw",
       "sittard-geleen": "Sittard-Geleen",
       venlo: "Venlo",
       roermond: "Roermond",
+      venray: "Venray",
+      voerendaal: "Voerendaal",
+      weert: "Weert",
     };
 
     if (adminEmail) {
       const adminEmailHtml = `
-        <h2>Nieuwe toelichting geplaatst</h2>
-        <p>Er is een nieuwe toelichting geplaatst op het platform.</p>
+        <h2>Nieuwe case geplaatst</h2>
+        <p>Er is een nieuwe case geplaatst op het platform.</p>
         <h3>Details</h3>
         <ul>
           <li><strong>Titel:</strong> ${challenge.title}</li>
@@ -311,26 +337,26 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
         <p><strong>Geplaatst door:</strong> Admin (${auth.session.user?.email})</p>
       `;
 
-      await sendEmail(adminEmail, "Nieuwe toelichting geplaatst", adminEmailHtml);
+      await sendEmail(adminEmail, "Nieuwe case geplaatst", adminEmailHtml);
     }
 
     if (challenge.email) {
       const confirmationEmailHtml = `
-        <h2>Bevestiging van je toelichting</h2>
-        <p>Je toelichting is succesvol geplaatst op het Limburg University platform.</p>
-        <h3>Jouw toelichting</h3>
+        <h2>Bevestiging van je case</h2>
+        <p>Je case is succesvol geplaatst op het Limburg University platform.</p>
+        <h3>Jouw case</h3>
         <ul>
           <li><strong>Titel:</strong> ${challenge.title}</li>
           <li><strong>Gemeente:</strong> ${municipalityNames[challenge.municipality] || challenge.municipality}</li>
           <li><strong>Categorie:</strong> ${categoryNames[challenge.category] || challenge.category}</li>
         </ul>
-        <p>Burgers en studenten kunnen nu reageren op deze toelichting.</p>
+        <p>Burgers en studenten kunnen nu reageren op deze case.</p>
         <p>Met vriendelijke groet,<br/>Limburg University</p>
       `;
 
       await sendEmail(
         challenge.email,
-        "Bevestiging van je toelichting",
+        "Bevestiging van je case",
         confirmationEmailHtml,
       );
     }

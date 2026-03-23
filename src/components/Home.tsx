@@ -153,17 +153,17 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={() => navigate('/toelichtingen')}
+              onClick={() => navigate('/cases')}
               className="bg-gradient-to-r from-[#8dc49f] to-[#7ab88d] hover:from-[#7ab88d] hover:to-[#6aa77d] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
             >
-              Ontdek Toelichtingen
+              Ontdek Cases
               <ArrowRight className="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               onClick={handlePlaceChallenge}
               className="bg-white hover:bg-gray-50 text-[#2c2a64] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
             >
-              Plaats een Toelichting
+              Plaats een Case
             </Button>
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function Home() {
               <div className="text-[#8dc49f] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
                 {challengesCounter.count}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Toelichtingen</div>
+              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Cases</div>
             </div>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
               <div className="text-[#8dc49f] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
@@ -225,7 +225,7 @@ export default function Home() {
               <Lightbulb className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-white font-bold text-[22px] md:text-[26px] mb-4 text-center">
-              Gemeente plaatst toelichting
+              Gemeente plaatst case
             </h3>
             <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80 text-center leading-relaxed">
               Gemeentes delen hun maatschappelijke uitdagingen en vragen om innovatieve ideeën
@@ -274,14 +274,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-4">
             <div>
               <h2 className="text-white font-bold text-[32px] md:text-[42px] mb-2">
-                Recente Toelichtingen
+                Recente Cases
               </h2>
               <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80">
                 Bekijk de nieuwste uitdagingen van gemeentes
               </p>
             </div>
             <Button 
-              onClick={() => navigate('/toelichtingen')}
+              onClick={() => navigate('/cases')}
               className="bg-[#8dc49f] hover:bg-[#7ab88d] text-white rounded-[8px] px-6 h-[48px] group"
             >
               Bekijk Alle
@@ -385,17 +385,17 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
-                onClick={() => navigate('/toelichtingen')}
+                onClick={() => navigate('/cases')}
                 className="bg-gradient-to-r from-[#8dc49f] to-[#7ab88d] hover:from-[#7ab88d] hover:to-[#6aa77d] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
               >
-                Ontdek Toelichtingen
+                Ontdek Cases
                 <ArrowRight className="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" />
               </Button>
               <Button 
                 onClick={handlePlaceChallenge}
                 className="bg-white hover:bg-gray-50 text-[#2c2a64] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
               >
-                Plaats een Toelichting
+                Plaats een Case
               </Button>
             </div>
           </div>

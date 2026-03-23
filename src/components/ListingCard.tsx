@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { Clock, Tag } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Listing } from "../lib/supabase";
+import { Listing, municipalityLabels } from "../lib/supabase";
 import svgPaths from "../imports/svg-j82t6p4shp";
 
 interface ListingCardProps {
@@ -56,14 +56,7 @@ export function ListingCard({ listing }: ListingCardProps) {
 }
 
 function getMunicipalityLabel(municipality: string): string {
-  const labels: Record<string, string> = {
-    maastricht: 'Maastricht',
-    heerlen: 'Heerlen',
-    'sittard-geleen': 'Sittard-Geleen',
-    venlo: 'Venlo',
-    roermond: 'Roermond',
-  };
-  return labels[municipality] || municipality;
+  return municipalityLabels[municipality as keyof typeof municipalityLabels] || municipality;
 }
 
 function getCategoryLabel(category: string): string {

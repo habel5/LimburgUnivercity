@@ -32,8 +32,8 @@ Dit document bundelt de belangrijkste opleverpunten van het project voor demonst
 - Sessies worden opgeslagen in de database
 
 ### 5. E-mailflow ingericht
-- Nieuwe toelichting verstuurt een notificatie naar de admin
-- Nieuwe toelichting verstuurt een bevestiging naar de opgegeven contactpersoon
+- Nieuwe case verstuurt een notificatie naar de admin
+- Nieuwe case verstuurt een bevestiging naar de opgegeven contactpersoon
 - Backend ondersteunt Resend secrets voor live e-mailverzending
 
 ## Uitgevoerde controles

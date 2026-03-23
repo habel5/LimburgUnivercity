@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
-import { Listing, Proposal } from "../lib/supabase";
+import { Listing, Proposal, municipalityLabels } from "../lib/supabase";
 import { ProposalCard } from "./ProposalCard";
 import { projectId, publicAnonKey } from '../config/env';
 import { useAuth } from "../lib/auth";
@@ -54,7 +54,7 @@ export default function ListingDetail() {
     return (
       <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <p className="text-white text-lg">Toelichting laden...</p>
+          <p className="text-white text-lg">Case laden...</p>
         </div>
       </div>
     );
@@ -64,8 +64,8 @@ export default function ListingDetail() {
     return (
       <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="text-2xl font-bold mb-4 text-white">Toelichting niet gevonden</h2>
-          <Button onClick={() => navigate('/toelichtingen')} className="bg-[#8dc49f] hover:bg-[#7ab88d] text-white">
+          <h2 className="text-2xl font-bold mb-4 text-white">Case niet gevonden</h2>
+          <Button onClick={() => navigate('/cases')} className="bg-[#8dc49f] hover:bg-[#7ab88d] text-white">
             Terug naar overzicht
           </Button>
         </div>
@@ -80,7 +80,7 @@ export default function ListingDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <Button
           variant="ghost"
-          onClick={() => navigate('/toelichtingen')}
+          onClick={() => navigate('/cases')}
           className="mb-4 md:mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -220,7 +220,7 @@ export default function ListingDetail() {
                 </Button>
 
                 <p className="text-[10px] sm:text-xs text-gray-600 mt-3 md:mt-4 text-center">
-                  Deel je ideeën en challenges voor deze toelichting
+                  Deel je ideeën en challenges voor deze case
                 </p>
               </CardContent>
             </Card>
@@ -232,14 +232,7 @@ export default function ListingDetail() {
 }
 
 function getMunicipalityLabel(municipality: string): string {
-  const labels: Record<string, string> = {
-    maastricht: 'Maastricht',
-    heerlen: 'Heerlen',
-    'sittard-geleen': 'Sittard-Geleen',
-    venlo: 'Venlo',
-    roermond: 'Roermond',
-  };
-  return labels[municipality] || municipality;
+  return municipalityLabels[municipality as keyof typeof municipalityLabels] || municipality;
 }
 
 function getCategoryLabel(category: string): string {

@@ -1,21 +1,21 @@
 # LimburgUnivercity
 
-LimburgUnivercity is een website waarop organisaties een toelichting of vraag kunnen plaatsen. Andere gebruikers kunnen daarop reageren met een voorstel of idee.
+LimburgUnivercity is een website waarop organisaties een case of vraag kunnen plaatsen. Andere gebruikers kunnen daarop reageren met een voorstel of idee.
 
 De website heeft:
 - een homepage
-- een overzicht van alle toelichtingen
-- een detailpagina per toelichting
-- een formulier om een nieuwe toelichting te plaatsen
+- een overzicht van alle cases
+- een detailpagina per case
+- een formulier om een nieuwe case te plaatsen
 - een formulier om een voorstel in te dienen
 - een admingedeelte voor beheer
 
 ## Waarvoor is dit project?
 
-Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische uitdagingen. Een organisatie plaatst een toelichting en bezoekers kunnen daarop reageren.
+Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische uitdagingen. Een organisatie plaatst een case en bezoekers kunnen daarop reageren.
 
-Bij een nieuwe toelichting gebeurt het volgende:
-- de toelichting wordt opgeslagen
+Bij een nieuwe case gebeurt het volgende:
+- de case wordt opgeslagen
 - de beheerder kan daar een melding van krijgen
 - de gebruiker kan een bevestigingsmail ontvangen
 
@@ -107,9 +107,9 @@ Controleert of er fouten in de code zitten.
 ## Belangrijke pagina’s
 
 - `/` homepage
-- `/toelichtingen` overzichtspagina
-- `/listing/:id` detailpagina van een toelichting
-- `/add` pagina om een toelichting toe te voegen
+- `/cases` overzichtspagina
+- `/listing/:id` detailpagina van een case
+- `/add` pagina om een case toe te voegen
 - `/listing/:id/submit-proposal` pagina om een voorstel in te dienen
 - `/admin` beheerpagina
 

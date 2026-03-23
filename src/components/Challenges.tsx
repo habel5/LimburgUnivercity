@@ -78,7 +78,7 @@ export default function Challenges() {
     
     // All retries failed
     console.error('All retries failed. Last error:', lastError);
-    toast.error('Kon toelichtingen niet laden. Probeer de pagina te vernieuwen.');
+    toast.error('Kon cases niet laden. Probeer de pagina te vernieuwen.');
     setLoading(false);
   };
 
@@ -103,17 +103,17 @@ export default function Challenges() {
           <div className="inline-block mb-4">
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
               <Sparkles className="w-5 h-5 text-[#8dc49f]" />
-              <span className="text-[#8dc49f] text-sm font-medium">Ontdek alle toelichtingen</span>
+              <span className="text-[#8dc49f] text-sm font-medium">Ontdek alle cases</span>
             </div>
           </div>
           <h1 className="text-white font-bold text-[40px] sm:text-[50px] md:text-[60px] leading-[1.1] mb-6">
-            Toelichtingen van <br />
+            Cases van <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8dc49f] to-[#6db88e]">
               Limburgse Gemeentes
             </span>
           </h1>
           <p className="text-white/80 text-[18px] sm:text-[20px] md:text-[22px] max-w-2xl leading-relaxed">
-            Zoek en filter toelichtingen van gemeentes in Limburg en draag bij aan de toekomst van jouw regio
+            Zoek en filter cases van gemeentes in Limburg en draag bij aan de toekomst van jouw regio
           </p>
         </div>
         
@@ -124,7 +124,7 @@ export default function Challenges() {
             className="bg-gradient-to-r from-[#8dc49f] to-[#7ab88d] hover:from-[#7ab88d] hover:to-[#6aa87d] text-white text-[16px] md:text-[18px] px-8 md:px-10 h-[50px] md:h-[56px] rounded-full shadow-lg shadow-[#8dc49f]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#8dc49f]/40 hover:-translate-y-1 group"
           >
             <Lightbulb className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-            Plaats toelichting
+            Plaats case
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
@@ -135,7 +135,7 @@ export default function Challenges() {
           <div className="relative mb-6">
             <Input
               type="text"
-              placeholder="Zoek toelichtingen..."
+              placeholder="Zoek cases..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-[50px] md:h-[56px] bg-white/90 backdrop-blur-sm rounded-[12px] border-white/30 pr-[70px] text-base md:text-lg shadow-sm focus:bg-white transition-colors"
@@ -182,7 +182,7 @@ export default function Challenges() {
           <div className="mt-6 pt-6 border-t border-white/20">
             <p className="text-white/90 text-sm md:text-base flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[#8dc49f]" />
-              {loading ? 'Laden...' : `${listings.length} ${listings.length === 1 ? 'toelichting' : 'toelichtingen'} gevonden`}
+              {loading ? 'Laden...' : `${listings.length} ${listings.length === 1 ? 'case' : 'cases'} gevonden`}
             </p>
           </div>
         </div>
@@ -199,7 +199,7 @@ export default function Challenges() {
           <div className="text-center py-16 md:py-24">
             <div className="bg-white/10 backdrop-blur-sm rounded-[20px] border border-white/20 p-12 max-w-md mx-auto">
               <Lightbulb className="w-16 h-16 text-[#8dc49f] mx-auto mb-4 opacity-50" />
-              <p className="text-white text-lg md:text-xl">Geen toelichtingen gevonden</p>
+              <p className="text-white text-lg md:text-xl">Geen cases gevonden</p>
               <p className="text-white/60 text-sm mt-2">Probeer een andere zoekopdracht of filter</p>
             </div>
           </div>

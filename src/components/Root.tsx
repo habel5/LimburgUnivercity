@@ -32,8 +32,8 @@ export default function Root() {
               <Link to="/" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
                 Home
               </Link>
-              <Link to="/toelichtingen" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
-                Toelichtingen
+              <Link to="/cases" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
+                Cases
               </Link>
               <Link to="/about" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
                 Over
@@ -84,11 +84,11 @@ export default function Root() {
                 Home
               </Link>
               <Link 
-                to="/toelichtingen" 
+                to="/cases" 
                 onClick={() => setMobileMenuOpen(false)}
                 className="block text-white text-[18px] py-2 hover:text-[#8dc49f] transition-colors"
               >
-                Toelichtingen
+                Cases
               </Link>
               <Link 
                 to="/about" 

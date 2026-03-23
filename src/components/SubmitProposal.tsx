@@ -59,7 +59,7 @@ export default function SubmitProposal() {
       setChallenge(data.challenge);
     } catch (error) {
       console.error('Error fetching challenge:', error);
-      toast.error('Kon toelichting niet laden');
+      toast.error('Kon case niet laden');
       navigate('/');
     } finally {
       setLoading(false);
@@ -148,7 +148,7 @@ export default function SubmitProposal() {
           className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
-          Terug naar toelichting
+          Terug naar case
         </Button>
 
         <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">

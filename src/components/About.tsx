@@ -8,6 +8,7 @@ import {
   projectId,
   publicAnonKey,
 } from "../config/env";
+import { municipalities } from "../lib/supabase";
 
 // Custom hook for counting animation
 function useCountUp(
@@ -55,7 +56,7 @@ export default function About() {
   const [stats, setStats] = useState({
     challenges: 0,
     proposals: 0,
-    municipalities: 5,
+    municipalities: municipalities.length,
   });
   const [startAnimation, setStartAnimation] = useState(false);
 
@@ -102,7 +103,7 @@ export default function About() {
         setStats({
           challenges: challenges.length,
           proposals: totalProposals,
-          municipalities: 5,
+          municipalities: municipalities.length,
         });
 
         // Start animation after data is loaded
@@ -250,13 +251,13 @@ export default function About() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <Link 
-              to="/toelichtingen" 
+              to="/cases" 
               className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 hover:border-[#8dc49f]/30 cursor-pointer"
             >
               <div className="text-[#8dc49f] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
                 {animatedChallenges}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Toelichtingen</div>
+              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Cases</div>
             </Link>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
               <div className="text-[#8dc49f] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">

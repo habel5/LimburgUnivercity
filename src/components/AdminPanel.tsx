@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { toast } from "sonner";
 import { useAuth } from "../lib/auth";
 import { projectId, publicAnonKey } from '../config/env';
+import { municipalityLabels } from "../lib/supabase";
 import { ArrowLeft, Database, BarChart3, FileText, Trash } from "lucide-react";
 
 interface Challenge {
@@ -194,14 +195,6 @@ export default function AdminPanel() {
       month: 'long',
       year: 'numeric',
     });
-  };
-
-  const municipalityLabels: Record<string, string> = {
-    'maastricht': 'Maastricht',
-    'heerlen': 'Heerlen',
-    'sittard-geleen': 'Sittard-Geleen',
-    'venlo': 'Venlo',
-    'roermond': 'Roermond',
   };
 
   const categoryLabels: Record<string, string> = {
