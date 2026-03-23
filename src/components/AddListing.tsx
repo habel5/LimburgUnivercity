@@ -33,7 +33,7 @@ export default function AddListing() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      toast.error('Je moet inloggen om een uitdaging te plaatsen');
+      toast.error('Je moet inloggen om een case te plaatsen');
       navigate('/');
     } else if (user) {
       setFormData(prev => ({
@@ -91,13 +91,13 @@ export default function AddListing() {
       const result = await response.json();
       console.log('Challenge created successfully:', result);
       
-      toast.success('Uitdaging succesvol geplaatst!');
+      toast.success('Case succesvol geplaatst!');
       setTimeout(() => {
-        navigate('/');
+        navigate('/cases');
       }, 1000);
     } catch (error) {
       console.error('Error creating challenge:', error);
-      toast.error('Er is een fout opgetreden bij het plaatsen van de uitdaging');
+      toast.error('Er is een fout opgetreden bij het plaatsen van de case');
     } finally {
       setSubmitting(false);
     }
@@ -112,7 +112,7 @@ export default function AddListing() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/cases')}
           className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -121,9 +121,9 @@ export default function AddListing() {
 
         <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
           <CardHeader>
-            <CardTitle className="text-[26px] font-bold text-black">Nieuwe Uitdaging Plaatsen</CardTitle>
+            <CardTitle className="text-[26px] font-bold text-black">Nieuwe Case Plaatsen</CardTitle>
             <CardDescription className="text-[18px] text-gray-700">
-              Plaats een nieuwe gemeente uitdaging voor burgers en studenten
+              Plaats een nieuwe gemeentelijke case voor burgers en studenten
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -188,7 +188,7 @@ export default function AddListing() {
                 <Label htmlFor="description" className="text-black text-[18px]">Beschrijving *</Label>
                 <Textarea
                   id="description"
-                  placeholder="Geef een gedetailleerde beschrijving van de uitdaging..."
+                  placeholder="Geef een gedetailleerde beschrijving van de case..."
                   rows={6}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -234,12 +234,12 @@ export default function AddListing() {
                   className="flex-1 bg-[#8dc49f] hover:bg-[#7ab88d] text-white"
                   disabled={submitting}
                 >
-                  {submitting ? 'Bezig...' : 'Uitdaging Plaatsen'}
+                  {submitting ? 'Bezig...' : 'Case Plaatsen'}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/cases')}
                   className="bg-white hover:bg-gray-100"
                   disabled={submitting}
                 >

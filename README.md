@@ -12,7 +12,7 @@ De website heeft:
 
 ## Waarvoor is dit project?
 
-Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische uitdagingen. Een organisatie plaatst een case en bezoekers kunnen daarop reageren.
+Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische cases. Een organisatie plaatst een case en bezoekers kunnen daarop reageren.
 
 Bij een nieuwe case gebeurt het volgende:
 - de case wordt opgeslagen

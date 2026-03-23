@@ -142,7 +142,7 @@ export default function About() {
                 <p className="opacity-90">
                   Het Limburg University Knowledge Festival is een
                   uniek platform waar docenten en lokale gemeenten
-                  samenkomen om maatschappelijke uitdagingen aan
+                  samenkomen om maatschappelijke cases aan
                   te pakken.
                 </p>
                 <p className="opacity-90">
@@ -155,7 +155,7 @@ export default function About() {
                 </p>
                 <p className="opacity-90">
                   Door middel van dit platform brengen we
-                  gemeente-uitdagingen onder de aandacht van
+                  gemeentelijke cases onder de aandacht van
                   docenten en onderzoekers die met creatieve
                   voorstellen kunnen komen. Samen maken we Limburg
                   slimmer, socialer en duurzamer.
@@ -173,7 +173,7 @@ export default function About() {
                       </p>
                       <p className="text-gray-300 text-[16px] lg:text-[18px] opacity-80">
                         We leren niet alleen in collegebanken, maar ook in de
-                        straten, parken en wijken van onze steden. Elke uitdaging is een
+                        straten, parken en wijken van onze steden. Elke case is een
                         kans om te leren, te innoveren en impact te maken.
                       </p>
                     </div>
@@ -211,7 +211,7 @@ export default function About() {
               <p className="opacity-90">
                 Het Limburg University Knowledge Festival is een
                 uniek platform waar docenten en lokale gemeenten
-                samenkomen om maatschappelijke uitdagingen aan te
+                samenkomen om maatschappelijke cases aan te
                 pakken.
               </p>
               <p className="opacity-90">
@@ -225,7 +225,7 @@ export default function About() {
                   "The City Is Our Campus"
                 </p>
                 <p className="text-gray-300 text-[14px] opacity-80">
-                  Elke uitdaging is een kans om te leren en impact te maken.
+                  Elke case is een kans om te leren en impact te maken.
                 </p>
               </div>
             </div>
@@ -316,7 +316,7 @@ export default function About() {
             </div>
             <p className="text-gray-300 text-[17px] md:text-[19px] leading-relaxed opacity-90">
               Het verbinden van academische expertise met
-              gemeentelijke uitdagingen door een toegankelijk
+              gemeentelijke cases door een toegankelijk
               platform te bieden waar kennis, creativiteit en
               burgerbetrokkenheid samenkomen.
             </p>
@@ -361,7 +361,7 @@ export default function About() {
                 Innovatie
               </h3>
               <p className="text-gray-300 text-[15px] md:text-[17px] opacity-80 leading-relaxed">
-                Creatieve en innovatieve oplossingen voor complexe maatschappelijke uitdagingen
+                Creatieve en innovatieve oplossingen voor complexe maatschappelijke cases
               </p>
             </div>
 

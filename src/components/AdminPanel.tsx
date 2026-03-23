@@ -122,7 +122,7 @@ export default function AdminPanel() {
   };
 
   const handleDeleteChallenge = async (id: string) => {
-    if (!confirm(`Weet je zeker dat je uitdaging ${id} wilt verwijderen? Dit verwijdert ook alle bijbehorende voorstellen.`)) {
+    if (!confirm(`Weet je zeker dat je case ${id} wilt verwijderen? Dit verwijdert ook alle bijbehorende voorstellen.`)) {
       return;
     }
 
@@ -145,7 +145,7 @@ export default function AdminPanel() {
         throw new Error(errorData.error || 'Failed to delete challenge');
       }
 
-      toast.success(`Uitdaging ${id} verwijderd`);
+      toast.success(`Case ${id} verwijderd`);
       fetchData();
     } catch (error) {
       console.error('Error deleting challenge:', error);
@@ -226,7 +226,7 @@ export default function AdminPanel() {
                 Admin Paneel
               </CardTitle>
               <CardDescription className="text-[18px] text-gray-700">
-                Beheer uitdagingen, voorstellen en bekijk statistieken
+                Beheer cases, voorstellen en bekijk statistieken
               </CardDescription>
             </CardHeader>
           </Card>
@@ -252,7 +252,7 @@ export default function AdminPanel() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                       <div className="bg-white rounded-lg p-4">
                         <div className="text-2xl font-bold text-[#2c2a64]">{stats.totalChallenges}</div>
-                        <div className="text-sm text-gray-600">Totaal Uitdagingen</div>
+                        <div className="text-sm text-gray-600">Totaal Cases</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
                         <div className="text-2xl font-bold text-[#2c2a64]">{stats.totalProposals}</div>
@@ -262,7 +262,7 @@ export default function AdminPanel() {
                         <div className="text-2xl font-bold text-[#8dc49f]">
                           {stats.totalChallenges > 0 ? (stats.totalProposals / stats.totalChallenges).toFixed(1) : '0'}
                         </div>
-                        <div className="text-sm text-gray-600">Gem. Voorstellen/Uitdaging</div>
+                        <div className="text-sm text-gray-600">Gem. Voorstellen/Case</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
                         <div className="text-2xl font-bold text-[#2c2a64]">
@@ -308,12 +308,12 @@ export default function AdminPanel() {
                 <CardHeader>
                   <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
                     <FileText className="w-5 h-5 text-[#8dc49f]" />
-                    Uitdagingen ({challenges.length})
+                    Cases ({challenges.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {challenges.length === 0 ? (
-                    <p className="text-gray-600 text-center py-4">Geen uitdagingen gevonden</p>
+                    <p className="text-gray-600 text-center py-4">Geen cases gevonden</p>
                   ) : (
                     <div className="space-y-2">
                       {challenges.map((challenge) => (

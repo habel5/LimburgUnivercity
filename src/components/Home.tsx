@@ -149,7 +149,7 @@ export default function Home() {
             Verbind Gemeentes met <span className="bg-gradient-to-r from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">Innovatieve Oplossingen</span>
           </h1>
           <p className="text-gray-300 text-[18px] sm:text-[20px] md:text-[24px] mb-12 leading-relaxed opacity-90 max-w-3xl mx-auto">
-            Een platform waar maatschappelijke uitdagingen van Limburgse gemeentes samenkomen met de kennis en creativiteit van Limburg University
+            Een platform waar cases van Limburgse gemeentes samenkomen met de kennis en creativiteit van Limburg University
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
@@ -206,7 +206,7 @@ export default function Home() {
             Hoe werkt het?
           </h2>
           <p className="text-gray-300 text-[18px] md:text-[20px] opacity-80 max-w-2xl mx-auto">
-            Van uitdaging tot oplossing in drie eenvoudige stappen
+            Van case tot oplossing in drie eenvoudige stappen
           </p>
         </div>
         
@@ -228,7 +228,7 @@ export default function Home() {
               Gemeente plaatst case
             </h3>
             <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80 text-center leading-relaxed">
-              Gemeentes delen hun maatschappelijke uitdagingen en vragen om innovatieve ideeën
+              Gemeentes delen hun cases en vragen om innovatieve ideeën
             </p>
           </div>
 
@@ -262,7 +262,7 @@ export default function Home() {
               Samen naar resultaat
             </h3>
             <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80 text-center leading-relaxed">
-              Door samenwerking ontstaan concrete oplossingen voor lokale uitdagingen
+              Door samenwerking ontstaan concrete oplossingen voor lokale cases
             </p>
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function Home() {
                 Recente Cases
               </h2>
               <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80">
-                Bekijk de nieuwste uitdagingen van gemeentes
+                Bekijk de nieuwste cases van gemeentes
               </p>
             </div>
             <Button 
@@ -345,7 +345,7 @@ export default function Home() {
                 Innovatieve Oplossingen
               </h3>
               <p className="text-gray-300 text-[14px] md:text-[16px] opacity-70">
-                Creatieve aanpak van uitdagingen
+                Creatieve aanpak van cases
               </p>
             </div>
 

@@ -1,15 +1,20 @@
-import { Outlet, Link } from "react-router";
+import { Outlet, Link, useLocation } from "react-router";
 import { LogOut, Menu } from "lucide-react";
 import imgWhite12 from "figma:asset/93ce601c3a15c1bda9ece7b02bdcafe207415acc.png";
 import { useAuth } from "../lib/auth";
 import { LoginModal } from "./LoginModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function Root() {
   const { isAuthenticated, user, logout } = useAuth();
+  const location = useLocation();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
@@ -142,7 +147,7 @@ export default function Root() {
       <footer className="bg-[#2c2a64] border-t border-[#3d3a7e] mt-8 md:mt-16">
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-6 md:py-8">
           <p className="text-center text-gray-400 text-xs sm:text-sm">
-            © 2026 Limburg University - Gemeente Uitdagingen Platform
+            © 2026 Limburg University - Cases Platform
           </p>
         </div>
       </footer>

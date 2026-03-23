@@ -144,7 +144,7 @@ export default function SubmitProposal() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
-          onClick={() => navigate(`/listing/${id}`)}
+          onClick={() => navigate('/cases')}
           className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -265,7 +265,7 @@ export default function SubmitProposal() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate(`/listing/${id}`)}
+                  onClick={() => navigate('/cases')}
                   className="bg-white hover:bg-gray-100"
                   disabled={submitting}
                 >
