@@ -84,7 +84,7 @@ export default function About() {
   const fetchStats = async () => {
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`,
+        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/stats`,
         {
           headers: {
             Authorization: `Bearer ${publicAnonKey}`,
@@ -93,17 +93,12 @@ export default function About() {
       );
 
       if (response.ok) {
-        const challenges = await response.json();
-        const totalProposals = challenges.reduce(
-          (sum: number, ch: any) =>
-            sum + (ch.proposal_count || 0),
-          0,
-        );
+        const data = await response.json();
 
         setStats({
-          challenges: challenges.length,
-          proposals: totalProposals,
-          municipalities: municipalities.length,
+          challenges: data.challenges || 0,
+          proposals: data.proposals || 0,
+          municipalities: data.municipalities || municipalities.length,
         });
 
         // Start animation after data is loaded

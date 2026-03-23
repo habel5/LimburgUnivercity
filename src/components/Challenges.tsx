@@ -20,6 +20,7 @@ import { Sparkles, Lightbulb, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function Challenges() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [selectedMunicipality, setSelectedMunicipality] = useState<"all" | Municipality>("all");
   const [selectedCategory, setSelectedCategory] = useState<"all" | Category>("all");
   const [listings, setListings] = useState<Listing[]>([]);
@@ -29,57 +30,49 @@ export default function Challenges() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 250);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  useEffect(() => {
     fetchChallenges();
-  }, [searchQuery, selectedMunicipality, selectedCategory]);
+  }, [debouncedSearchQuery, selectedMunicipality, selectedCategory]);
 
   const fetchChallenges = async () => {
     setLoading(true);
     
     const params = new URLSearchParams();
-    if (searchQuery) params.append('search', searchQuery);
+    if (debouncedSearchQuery) params.append('search', debouncedSearchQuery);
     if (selectedMunicipality !== 'all') params.append('municipality', selectedMunicipality);
     if (selectedCategory !== 'all') params.append('category', selectedCategory);
 
-    // Retry logic
-    let retries = 3;
-    let lastError = null;
-    
-    while (retries > 0) {
-      try {
-        const response = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?${params}`,
-          {
-            headers: {
-              'Authorization': `Bearer ${publicAnonKey}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Failed to fetch challenges: ${response.status} - ${errorText}`);
+    try {
+      const response = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?${params}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${publicAnonKey}`,
+          },
         }
+      );
 
-        const data = await response.json();
-        setListings(data);
-        setLoading(false); // SUCCESS - stop loading
-        return; // Success! Exit function
-      } catch (error: any) {
-        lastError = error;
-        retries--;
-        console.error(`Error fetching challenges (${retries} retries left):`, error);
-        
-        if (retries > 0) {
-          // Wait before retry (exponential backoff)
-          await new Promise(resolve => setTimeout(resolve, 1000 * (4 - retries)));
-        }
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch challenges: ${response.status} - ${errorText}`);
       }
+
+      const data = await response.json();
+      setListings(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error fetching challenges:', error);
+      toast.error('Kon cases niet laden. Probeer de pagina te vernieuwen.');
+      setListings([]);
+    } finally {
+      setLoading(false);
     }
-    
-    // All retries failed
-    console.error('All retries failed. Last error:', lastError);
-    toast.error('Kon cases niet laden. Probeer de pagina te vernieuwen.');
-    setLoading(false);
   };
 
   const handlePlaceChallenge = () => {

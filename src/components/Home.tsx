@@ -55,8 +55,7 @@ export default function Home() {
   const municipalitiesCounter = useCounter(stats.municipalities, 2000);
 
   useEffect(() => {
-    fetchStats();
-    fetchRecentChallenges();
+    fetchHomeData();
   }, []);
 
   // Start counters when stats are loaded
@@ -71,51 +70,43 @@ export default function Home() {
     }
   }, [stats]);
 
-  const fetchStats = async () => {
+  const fetchHomeData = async () => {
     try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/stats`,
-        {
-          headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
-          },
-        }
-      );
+      const [statsResponse, challengesResponse] = await Promise.all([
+        fetch(
+          `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/stats`,
+          {
+            headers: {
+              'Authorization': `Bearer ${publicAnonKey}`,
+            },
+          }
+        ),
+        fetch(
+          `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?limit=3`,
+          {
+            headers: {
+              'Authorization': `Bearer ${publicAnonKey}`,
+            },
+          }
+        ),
+      ]);
 
-      if (response.ok) {
-        const data = await response.json();
-        setStats(data);
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json();
+        setStats(statsData);
       } else {
-        console.error('Error response from server:', response.status, response.statusText);
-        // Keep default stats (all 0)
+        console.error('Error response from stats endpoint:', statsResponse.status, statsResponse.statusText);
       }
-    } catch (error) {
-      console.error('Error fetching stats:', error);
-      // Keep default stats (all 0)
-    }
-  };
 
-  const fetchRecentChallenges = async () => {
-    try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?limit=3`,
-        {
-          headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setRecentChallenges(data);
+      if (challengesResponse.ok) {
+        const challengesData = await challengesResponse.json();
+        setRecentChallenges(Array.isArray(challengesData) ? challengesData : []);
       } else {
-        console.error('Error response from server:', response.status, response.statusText);
+        console.error('Error response from challenges endpoint:', challengesResponse.status, challengesResponse.statusText);
         setRecentChallenges([]);
       }
     } catch (error) {
-      console.error('Error fetching recent challenges:', error);
-      // Set empty array so UI doesn't break
+      console.error('Error fetching home data:', error);
       setRecentChallenges([]);
     } finally {
       setLoading(false);

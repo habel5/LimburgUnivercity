@@ -44,78 +44,83 @@ export default function AdminPanel() {
 
   // Check authentication on mount
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !accessToken) {
       toast.error('Geen toegang! U moet ingelogd zijn als admin om het admin paneel te openen.');
       navigate('/');
       return;
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, accessToken, navigate]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated || accessToken) {
       fetchData();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, accessToken]);
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      
-      // Fetch challenges
-      const challengesResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`,
-        {
+
+      const [challengesResponse, proposalsResponse] = await Promise.all([
+        fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`, {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
           },
-        }
-      );
+        }),
+        fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`, {
+          headers: {
+            'Authorization': `Bearer ${publicAnonKey}`,
+          },
+        }),
+      ]);
+
+      let challengesData: Challenge[] = [];
+      let proposalsData: Proposal[] = [];
 
       if (challengesResponse.ok) {
-        const challengesData = await challengesResponse.json();
-        setChallenges(challengesData);
-
-        // Calculate stats
-        const challengesByMunicipality: Record<string, number> = {};
-        const challengesByCategory: Record<string, number> = {};
-        let totalProposals = 0;
-
-        challengesData.forEach((ch: Challenge) => {
-          // Count by municipality
-          challengesByMunicipality[ch.municipality] = (challengesByMunicipality[ch.municipality] || 0) + 1;
-          
-          // Count by category
-          challengesByCategory[ch.category] = (challengesByCategory[ch.category] || 0) + 1;
-          
-          // Count proposals
-          totalProposals += ch.proposal_count || 0;
-        });
-
-        setStats({
-          totalChallenges: challengesData.length,
-          totalProposals,
-          challengesByMunicipality,
-          challengesByCategory,
-        });
+        const parsedChallenges = await challengesResponse.json();
+        challengesData = Array.isArray(parsedChallenges) ? parsedChallenges : [];
+      } else {
+        console.error('Failed to fetch challenges:', challengesResponse.status, challengesResponse.statusText);
       }
 
-      // Fetch all proposals directly from new endpoint
-      const proposalsResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`,
-        {
-          headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
-          },
-        }
-      );
-      
       if (proposalsResponse.ok) {
-        const proposalsData = await proposalsResponse.json();
-        setProposals(proposalsData);
+        const parsedProposals = await proposalsResponse.json();
+        proposalsData = Array.isArray(parsedProposals) ? parsedProposals : [];
+      } else {
+        console.error('Failed to fetch proposals:', proposalsResponse.status, proposalsResponse.statusText);
       }
+
+      setChallenges(challengesData);
+      setProposals(proposalsData);
+
+      const challengesByMunicipality: Record<string, number> = {};
+      const challengesByCategory: Record<string, number> = {};
+      let totalProposals = 0;
+
+      challengesData.forEach((challenge) => {
+        challengesByMunicipality[challenge.municipality] = (challengesByMunicipality[challenge.municipality] || 0) + 1;
+        challengesByCategory[challenge.category] = (challengesByCategory[challenge.category] || 0) + 1;
+        totalProposals += challenge.proposal_count || 0;
+      });
+
+      setStats({
+        totalChallenges: challengesData.length,
+        totalProposals,
+        challengesByMunicipality,
+        challengesByCategory,
+      });
     } catch (error) {
       console.error('Error fetching data:', error);
       toast.error('Er is een fout opgetreden bij het ophalen van data');
+      setChallenges([]);
+      setProposals([]);
+      setStats({
+        totalChallenges: 0,
+        totalProposals: 0,
+        challengesByMunicipality: {},
+        challengesByCategory: {},
+      });
     } finally {
       setLoading(false);
     }
@@ -325,7 +330,7 @@ export default function AdminPanel() {
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-mono text-sm text-gray-500">{challenge.id}</span>
                               <span className="text-xs bg-[#f2644c] text-white px-2 py-0.5 rounded">
-                                {municipalityLabels[challenge.municipality]}
+                                {municipalityLabels[challenge.municipality as keyof typeof municipalityLabels] || challenge.municipality}
                               </span>
                               <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
                                 {categoryLabels[challenge.category]}

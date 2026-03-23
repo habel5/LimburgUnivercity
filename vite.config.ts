@@ -58,6 +58,14 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router'],
+          ui: ['lucide-react', 'sonner', 'zustand'],
+        },
+      },
+    },
   },
   server: {
     port: 3000,
