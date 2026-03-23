@@ -368,6 +368,37 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
   }
 });
 
+app.put("/make-server-09c2210b/challenges/:id", async (c) => {
+  try {
+    const auth = await requireAdmin(c);
+    if ("error" in auth) return c.json({ error: auth.error }, auth.status);
+
+    const id = c.req.param("id");
+    const existingChallenge = await kv.get(`challenge:${id}`);
+    if (!existingChallenge) {
+      return c.json({ error: "Challenge not found" }, 404);
+    }
+
+    const body = await c.req.json();
+    const updatedChallenge = {
+      ...existingChallenge,
+      title: body.title,
+      description: body.description,
+      category: body.category,
+      municipality: body.municipality,
+      author: body.author,
+      email: body.email,
+      organization: body.organization,
+    };
+
+    await kv.set(`challenge:${id}`, updatedChallenge);
+    return c.json({ success: true, challenge: updatedChallenge });
+  } catch (error) {
+    console.error("Error updating challenge:", error);
+    return c.json({ error: "Failed to update challenge" }, 500);
+  }
+});
+
 app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
   try {
     const auth = await requireAdmin(c);

@@ -2,17 +2,26 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { toast } from "sonner";
 import { useAuth } from "../lib/auth";
 import { projectId, publicAnonKey } from '../config/env';
-import { municipalityLabels } from "../lib/supabase";
-import { ArrowLeft, Database, BarChart3, FileText, Trash } from "lucide-react";
+import { categories, municipalities, municipalityLabels, Category, Municipality } from "../lib/supabase";
+import { ArrowLeft, Database, BarChart3, FileText, Pencil, Trash } from "lucide-react";
 
 interface Challenge {
   id: string;
   title: string;
+  description: string;
   municipality: string;
   category: string;
+  author: string;
+  email: string;
+  organization?: string;
   created_at: string;
   proposal_count?: number;
 }
@@ -33,6 +42,16 @@ interface Stats {
   challengesByCategory: Record<string, number>;
 }
 
+interface ChallengeFormState {
+  id: string;
+  title: string;
+  description: string;
+  municipality: Municipality | "";
+  category: Category | "";
+  organization: string;
+  email: string;
+}
+
 export default function AdminPanel() {
   const navigate = useNavigate();
   const { isAuthenticated, accessToken } = useAuth();
@@ -41,6 +60,8 @@ export default function AdminPanel() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [editingChallenge, setEditingChallenge] = useState<ChallengeFormState | null>(null);
+  const [savingChallenge, setSavingChallenge] = useState(false);
 
   // Check authentication on mount
   useEffect(() => {
@@ -194,6 +215,73 @@ export default function AdminPanel() {
     }
   };
 
+  const handleStartEdit = (challenge: Challenge) => {
+    setEditingChallenge({
+      id: challenge.id,
+      title: challenge.title,
+      description: challenge.description,
+      municipality: challenge.municipality as Municipality,
+      category: challenge.category as Category,
+      organization: challenge.organization || "",
+      email: challenge.email,
+    });
+  };
+
+  const handleSaveChallenge = async () => {
+    if (!editingChallenge) return;
+
+    if (
+      !editingChallenge.title ||
+      !editingChallenge.description ||
+      !editingChallenge.municipality ||
+      !editingChallenge.category ||
+      !editingChallenge.organization ||
+      !editingChallenge.email
+    ) {
+      toast.error("Vul alle verplichte velden in");
+      return;
+    }
+
+    try {
+      setSavingChallenge(true);
+
+      const response = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges/${editingChallenge.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${publicAnonKey}`,
+            "X-Session-Token": accessToken || "",
+          },
+          body: JSON.stringify({
+            title: editingChallenge.title,
+            description: editingChallenge.description,
+            category: editingChallenge.category,
+            municipality: editingChallenge.municipality,
+            author: editingChallenge.organization,
+            email: editingChallenge.email,
+            organization: editingChallenge.organization,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update challenge");
+      }
+
+      toast.success(`Case ${editingChallenge.id} bijgewerkt`);
+      setEditingChallenge(null);
+      fetchData();
+    } catch (error) {
+      console.error("Error updating challenge:", error);
+      toast.error("Er is een fout opgetreden bij het opslaan van de case");
+    } finally {
+      setSavingChallenge(false);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('nl-NL', {
       day: 'numeric',
@@ -342,15 +430,25 @@ export default function AdminPanel() {
                               <span>{formatDate(challenge.created_at)}</span>
                             </div>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteChallenge(challenge.id)}
-                            disabled={deletingId === challenge.id}
-                            className="ml-4 text-red-600 hover:text-red-700 hover:bg-red-50"
-                          >
-                            <Trash className="w-4 h-4" />
-                          </Button>
+                          <div className="ml-4 flex items-center gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleStartEdit(challenge)}
+                              className="text-[#2a2321] hover:text-[#f2644c] hover:bg-orange-50"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteChallenge(challenge.id)}
+                              disabled={deletingId === challenge.id}
+                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            >
+                              <Trash className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -409,6 +507,129 @@ export default function AdminPanel() {
           )}
         </div>
       </div>
+
+      <Dialog open={editingChallenge !== null} onOpenChange={(open) => !open && setEditingChallenge(null)}>
+        <DialogContent className="bg-[#f2f2f2] border-0 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-black">Case bewerken</DialogTitle>
+            <DialogDescription className="text-gray-700">
+              Pas de gegevens van deze case aan en sla de wijzigingen op.
+            </DialogDescription>
+          </DialogHeader>
+
+          {editingChallenge && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-title" className="text-black">Titel</Label>
+                <Input
+                  id="edit-title"
+                  value={editingChallenge.title}
+                  onChange={(e) => setEditingChallenge({ ...editingChallenge, title: e.target.value })}
+                  className="bg-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-municipality" className="text-black">Gemeente</Label>
+                  <Select
+                    value={editingChallenge.municipality}
+                    onValueChange={(value) =>
+                      setEditingChallenge({ ...editingChallenge, municipality: value as Municipality })
+                    }
+                  >
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder="Selecteer een gemeente" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {municipalities.map((municipality) => (
+                        <SelectItem key={municipality.value} value={municipality.value}>
+                          {municipality.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="edit-category" className="text-black">Categorie</Label>
+                  <Select
+                    value={editingChallenge.category}
+                    onValueChange={(value) =>
+                      setEditingChallenge({ ...editingChallenge, category: value as Category })
+                    }
+                  >
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder="Selecteer een categorie" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category.value} value={category.value}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="edit-description" className="text-black">Beschrijving</Label>
+                <Textarea
+                  id="edit-description"
+                  rows={6}
+                  value={editingChallenge.description}
+                  onChange={(e) => setEditingChallenge({ ...editingChallenge, description: e.target.value })}
+                  className="bg-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-organization" className="text-black">Afdeling</Label>
+                  <Input
+                    id="edit-organization"
+                    value={editingChallenge.organization}
+                    onChange={(e) => setEditingChallenge({ ...editingChallenge, organization: e.target.value })}
+                    className="bg-white"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="edit-email" className="text-black">Contact Email</Label>
+                  <Input
+                    id="edit-email"
+                    type="email"
+                    value={editingChallenge.email}
+                    onChange={(e) => setEditingChallenge({ ...editingChallenge, email: e.target.value })}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setEditingChallenge(null)}
+              disabled={savingChallenge}
+              className="bg-white hover:bg-gray-100"
+            >
+              Annuleren
+            </Button>
+            <Button
+              type="button"
+              onClick={handleSaveChallenge}
+              disabled={savingChallenge}
+              className="bg-[#f2644c] hover:bg-[#de5a42] text-white"
+            >
+              {savingChallenge ? "Opslaan..." : "Wijzigingen opslaan"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
