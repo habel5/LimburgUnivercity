@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import imgKennisFestivalBannerEdited1 from "figma:asset/af7d978d0cb24342baaf8e0d89cbc02ed90a7de8.png";
+import imgKennisFestivalBannerEdited1 from "../assets/Banner.png";
 import imgVistaLogo from "figma:asset/29444d676ea0be3981c0e5c3036ea8817d3926c9.png";
 import imgZuydLogo from "figma:asset/203acb71bc15783d4542299713c310ad058b71a2.png";
 import { Sparkles, Target, Users, Lightbulb, Award, Heart } from "lucide-react";
