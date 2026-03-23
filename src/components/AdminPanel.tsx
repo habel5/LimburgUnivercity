@@ -207,12 +207,12 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
-          className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
+          className="mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar home
@@ -222,7 +222,7 @@ export default function AdminPanel() {
           <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
             <CardHeader className="pb-6">
               <CardTitle className="text-[26px] font-bold text-black flex items-center gap-2">
-                <Database className="w-6 h-6 text-[#8dc49f]" />
+                <Database className="w-6 h-6 text-[#f2644c]" />
                 Admin Paneel
               </CardTitle>
               <CardDescription className="text-[18px] text-gray-700">
@@ -244,28 +244,28 @@ export default function AdminPanel() {
                 <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                   <CardHeader>
                     <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                      <BarChart3 className="w-5 h-5 text-[#8dc49f]" />
+                      <BarChart3 className="w-5 h-5 text-[#f2644c]" />
                       Statistieken
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                       <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2c2a64]">{stats.totalChallenges}</div>
+                        <div className="text-2xl font-bold text-[#2a2321]">{stats.totalChallenges}</div>
                         <div className="text-sm text-gray-600">Totaal Cases</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2c2a64]">{stats.totalProposals}</div>
+                        <div className="text-2xl font-bold text-[#2a2321]">{stats.totalProposals}</div>
                         <div className="text-sm text-gray-600">Totaal Voorstellen</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#8dc49f]">
+                        <div className="text-2xl font-bold text-[#f2644c]">
                           {stats.totalChallenges > 0 ? (stats.totalProposals / stats.totalChallenges).toFixed(1) : '0'}
                         </div>
                         <div className="text-sm text-gray-600">Gem. Voorstellen/Case</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2c2a64]">
+                        <div className="text-2xl font-bold text-[#2a2321]">
                           {Object.keys(stats.challengesByMunicipality).length}
                         </div>
                         <div className="text-sm text-gray-600">Actieve Gemeentes</div>
@@ -280,7 +280,7 @@ export default function AdminPanel() {
                           {Object.entries(stats.challengesByMunicipality).map(([key, count]) => (
                             <div key={key} className="flex justify-between items-center">
                               <span className="text-sm text-gray-700">{municipalityLabels[key] || key}</span>
-                              <span className="font-semibold text-[#2c2a64]">{count}</span>
+                              <span className="font-semibold text-[#2a2321]">{count}</span>
                             </div>
                           ))}
                         </div>
@@ -293,7 +293,7 @@ export default function AdminPanel() {
                           {Object.entries(stats.challengesByCategory).map(([key, count]) => (
                             <div key={key} className="flex justify-between items-center">
                               <span className="text-sm text-gray-700">{categoryLabels[key] || key}</span>
-                              <span className="font-semibold text-[#2c2a64]">{count}</span>
+                              <span className="font-semibold text-[#2a2321]">{count}</span>
                             </div>
                           ))}
                         </div>
@@ -307,7 +307,7 @@ export default function AdminPanel() {
               <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <CardHeader>
                   <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#8dc49f]" />
+                    <FileText className="w-5 h-5 text-[#f2644c]" />
                     Cases ({challenges.length})
                   </CardTitle>
                 </CardHeader>
@@ -324,7 +324,7 @@ export default function AdminPanel() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-mono text-sm text-gray-500">{challenge.id}</span>
-                              <span className="text-xs bg-[#8dc49f] text-white px-2 py-0.5 rounded">
+                              <span className="text-xs bg-[#f2644c] text-white px-2 py-0.5 rounded">
                                 {municipalityLabels[challenge.municipality]}
                               </span>
                               <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
@@ -357,7 +357,7 @@ export default function AdminPanel() {
               <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <CardHeader>
                   <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#8dc49f]" />
+                    <FileText className="w-5 h-5 text-[#f2644c]" />
                     Voorstellen ({proposals.length})
                   </CardTitle>
                 </CardHeader>

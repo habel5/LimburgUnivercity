@@ -70,7 +70,7 @@ export default function SubmitProposal() {
     e.preventDefault();
     
     // Validation
-    if (!formData.title || !formData.description || !formData.author || !formData.email || !formData.organization || !formData.interestType) {
+    if (!formData.title || !formData.author || !formData.email || !formData.organization || !formData.interestType) {
       toast.error('Vul alle verplichte velden in');
       return;
     }
@@ -127,7 +127,7 @@ export default function SubmitProposal() {
 
   if (loading) {
     return (
-      <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <p className="text-white text-lg">Laden...</p>
         </div>
@@ -140,12 +140,12 @@ export default function SubmitProposal() {
   }
 
   return (
-    <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
-          onClick={() => navigate('/cases')}
-          className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
+          onClick={() => navigate(`/listing/${id}`)}
+          className="mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar case
@@ -167,23 +167,9 @@ export default function SubmitProposal() {
                 </Label>
                 <Input
                   id="title"
-                  placeholder="Bijv. Groen vervoer initiatief"
+                  placeholder="Bijv. Webapplicatie ontwerpen"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                  className="bg-white"
-                />
-              </div>
-
-              {/* Description */}
-              <div className="space-y-2">
-                <Label htmlFor="description" className="text-black text-[18px]">Beschrijving *</Label>
-                <Textarea
-                  id="description"
-                  placeholder="Beschrijf je challenge in detail..."
-                  rows={8}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   required
                   className="bg-white"
                 />
@@ -245,19 +231,32 @@ export default function SubmitProposal() {
                     <SelectValue placeholder="Selecteer interesse type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="meer-over-weten">Meer over weten</SelectItem>
-                    <SelectItem value="hackathon">Hackathon</SelectItem>
+                    <SelectItem value="meer-over-weten">Hier wil ik meer over weten</SelectItem>
+                    <SelectItem value="hackathon">Hier wil ik een Hackathon voor hebben</SelectItem>
                     <SelectItem value="educatie">Ik wil dit onderwerp in mijn educatie</SelectItem>
-                    <SelectItem value="oplossing">Oplossing</SelectItem>
+                    <SelectItem value="oplossing">Hiervoor heb ik een oplossing</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-black text-[18px]">Beschrijving (optioneel)</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Beschrijf je challenge verder als je extra toelichting wilt geven..."
+                  rows={8}
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="bg-white"
+                />
               </div>
 
               {/* Submit Button */}
               <div className="flex gap-3 pt-4">
                 <Button 
                   type="submit" 
-                  className="flex-1 bg-[#8dc49f] hover:bg-[#7ab88d] text-white"
+                  className="flex-1 bg-[#f2644c] hover:bg-[#de5a42] text-white"
                   disabled={submitting}
                 >
                   {submitting ? 'Bezig...' : 'Challenge Indienen'}
@@ -265,7 +264,7 @@ export default function SubmitProposal() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate('/cases')}
+                  onClick={() => navigate(`/listing/${id}`)}
                   className="bg-white hover:bg-gray-100"
                   disabled={submitting}
                 >

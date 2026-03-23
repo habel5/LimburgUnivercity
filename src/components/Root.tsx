@@ -23,9 +23,9 @@ export default function Root() {
   };
 
   return (
-    <div className="min-h-screen bg-[#2c2a64]">
+    <div className="min-h-screen bg-[#2a2321]">
       {/* Header */}
-      <header className="bg-[#2c2a64] border-b border-[#3d3a7e] sticky top-0 z-50">
+      <header className="bg-[#2a2321] border-b border-[#4b3a36] sticky top-0 z-50">
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12">
           <div className="flex justify-between items-center h-[100px] sm:h-[120px] md:h-[149px]">
             <Link to="/" className="flex items-center">
@@ -34,17 +34,17 @@ export default function Root() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8 xl:gap-12">
-              <Link to="/" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
+              <Link to="/" className="text-white text-[18px] xl:text-[20px] hover:text-[#f2644c] transition-colors">
                 Home
               </Link>
-              <Link to="/cases" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
+              <Link to="/cases" className="text-white text-[18px] xl:text-[20px] hover:text-[#f2644c] transition-colors">
                 Cases
               </Link>
-              <Link to="/about" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
+              <Link to="/about" className="text-white text-[18px] xl:text-[20px] hover:text-[#f2644c] transition-colors">
                 Over
               </Link>
               {isAuthenticated && (
-                <Link to="/admin" className="text-white text-[18px] xl:text-[20px] hover:text-[#8dc49f] transition-colors">
+                <Link to="/admin" className="text-white text-[18px] xl:text-[20px] hover:text-[#f2644c] transition-colors">
                   Admin
                 </Link>
               )}
@@ -53,7 +53,7 @@ export default function Root() {
                   <span className="text-white text-[14px] xl:text-[16px]">Danny</span>
                   <button
                     onClick={handleLogout}
-                    className="bg-[#211568] text-white text-[18px] xl:text-[20px] px-6 xl:px-8 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#2d1e8a] transition-colors flex items-center gap-2"
+                    className="bg-[#1f1a19] text-white text-[18px] xl:text-[20px] px-6 xl:px-8 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#3a2d29] transition-colors flex items-center gap-2"
                   >
                     <LogOut className="w-4 h-4" />
                     Uitloggen
@@ -62,7 +62,7 @@ export default function Root() {
               ) : (
                 <button
                   onClick={() => setShowLoginModal(true)}
-                  className="bg-[#211568] text-white text-[18px] xl:text-[20px] px-6 xl:px-8 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#2d1e8a] transition-colors"
+                  className="bg-[#1f1a19] text-white text-[18px] xl:text-[20px] px-6 xl:px-8 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#3a2d29] transition-colors"
                 >
                   Login
                 </button>
@@ -84,21 +84,21 @@ export default function Root() {
               <Link 
                 to="/" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-[18px] py-2 hover:text-[#8dc49f] transition-colors"
+                className="block text-white text-[18px] py-2 hover:text-[#f2644c] transition-colors"
               >
                 Home
               </Link>
               <Link 
                 to="/cases" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-[18px] py-2 hover:text-[#8dc49f] transition-colors"
+                className="block text-white text-[18px] py-2 hover:text-[#f2644c] transition-colors"
               >
                 Cases
               </Link>
               <Link 
                 to="/about" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-[18px] py-2 hover:text-[#8dc49f] transition-colors"
+                className="block text-white text-[18px] py-2 hover:text-[#f2644c] transition-colors"
               >
                 Over
               </Link>
@@ -106,7 +106,7 @@ export default function Root() {
                 <Link 
                   to="/admin" 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-white text-[18px] py-2 hover:text-[#8dc49f] transition-colors"
+                  className="block text-white text-[18px] py-2 hover:text-[#f2644c] transition-colors"
                 >
                   Admin
                 </Link>
@@ -116,7 +116,7 @@ export default function Root() {
                   <div className="text-white text-[14px] py-2">Danny</div>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left bg-[#211568] text-white text-[18px] px-4 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#2d1e8a] transition-colors flex items-center gap-2"
+                    className="w-full text-left bg-[#1f1a19] text-white text-[18px] px-4 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#3a2d29] transition-colors flex items-center gap-2"
                   >
                     <LogOut className="w-4 h-4" />
                     Uitloggen
@@ -128,7 +128,7 @@ export default function Root() {
                     setShowLoginModal(true);
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full text-left bg-[#211568] text-white text-[18px] px-4 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#2d1e8a] transition-colors"
+                  className="w-full text-left bg-[#1f1a19] text-white text-[18px] px-4 py-2 rounded-[5px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:bg-[#3a2d29] transition-colors"
                 >
                   Login
                 </button>
@@ -144,7 +144,7 @@ export default function Root() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#2c2a64] border-t border-[#3d3a7e] mt-8 md:mt-16">
+      <footer className="bg-[#2a2321] border-t border-[#4b3a36] mt-8 md:mt-16">
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-6 md:py-8">
           <p className="text-center text-gray-400 text-xs sm:text-sm">
             © 2026 Limburg University - Cases Platform

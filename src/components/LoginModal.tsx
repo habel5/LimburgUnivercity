@@ -100,7 +100,7 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#8dc49f] hover:bg-[#7ab88d] text-white"
+                className="w-full bg-[#f2644c] hover:bg-[#de5a42] text-white"
               >
                 {isLoading ? 'Inloggen...' : 'Inloggen'}
               </Button>

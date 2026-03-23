@@ -108,12 +108,12 @@ export default function AddListing() {
   }
 
   return (
-    <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/cases')}
-          className="mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
+          className="mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar overzicht
@@ -231,7 +231,7 @@ export default function AddListing() {
               <div className="flex gap-3 pt-4">
                 <Button 
                   type="submit" 
-                  className="flex-1 bg-[#8dc49f] hover:bg-[#7ab88d] text-white"
+                  className="flex-1 bg-[#f2644c] hover:bg-[#de5a42] text-white"
                   disabled={submitting}
                 >
                   {submitting ? 'Bezig...' : 'Case Plaatsen'}

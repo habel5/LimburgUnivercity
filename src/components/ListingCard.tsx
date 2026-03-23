@@ -17,7 +17,7 @@ export function ListingCard({ listing }: ListingCardProps) {
       <Card className="h-full hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
         <CardContent className="p-5 md:p-6 flex flex-col h-full">
           {/* Title */}
-          <h3 className="font-bold text-[22px] md:text-[26px] text-black leading-tight mb-3 line-clamp-2 group-hover:text-[#2c2a64] transition-colors">
+          <h3 className="font-bold text-[22px] md:text-[26px] text-black leading-tight mb-3 line-clamp-2 group-hover:text-[#2a2321] transition-colors">
             {listing.title}
           </h3>
           
@@ -27,7 +27,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           </p>
 
           {/* Badge */}
-          <Badge className="bg-[#8dc49f] hover:bg-[#7db88e] text-white text-[17px] md:text-[19px] px-4 py-1.5 rounded-[5px] w-fit mb-4 transition-colors">
+          <Badge className="bg-[#f2644c] hover:bg-[#de5a42] text-white text-[17px] md:text-[19px] px-4 py-1.5 rounded-[5px] w-fit mb-4 transition-colors">
             {getMunicipalityLabel(listing.municipality)}
           </Badge>
 

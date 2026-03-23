@@ -52,7 +52,7 @@ export default function ListingDetail() {
 
   if (loading) {
     return (
-      <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <p className="text-white text-lg">Case laden...</p>
         </div>
@@ -62,10 +62,10 @@ export default function ListingDetail() {
 
   if (!listing) {
     return (
-      <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h2 className="text-2xl font-bold mb-4 text-white">Case niet gevonden</h2>
-          <Button onClick={() => navigate('/cases')} className="bg-[#8dc49f] hover:bg-[#7ab88d] text-white">
+          <Button onClick={() => navigate('/cases')} className="bg-[#f2644c] hover:bg-[#de5a42] text-white">
             Terug naar overzicht
           </Button>
         </div>
@@ -76,12 +76,12 @@ export default function ListingDetail() {
   const timeAgo = getTimeAgo(listing.created_at);
 
   return (
-    <div className="bg-[#2c2a64] min-h-[calc(100vh-149px)]">
+    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/cases')}
-          className="mb-4 md:mb-6 gap-2 text-white hover:text-[#8dc49f] hover:bg-white/10"
+          className="mb-4 md:mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="hidden sm:inline">Terug naar overzicht</span>
@@ -95,7 +95,7 @@ export default function ListingDetail() {
             <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
               <CardContent className="p-4 sm:p-5 md:p-6">
                 <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4">
-                  <Badge className="bg-[#8dc49f] hover:bg-[#8dc49f] text-white text-[16px] sm:text-[18px] md:text-[20px] px-3 md:px-4 py-1 rounded-[5px] h-[28px] md:h-[30px]">
+                  <Badge className="bg-[#f2644c] hover:bg-[#f2644c] text-white text-[16px] sm:text-[18px] md:text-[20px] px-3 md:px-4 py-1 rounded-[5px] h-[28px] md:h-[30px]">
                     {getMunicipalityLabel(listing.municipality)}
                   </Badge>
                   <Badge variant="outline" className="text-black border-gray-300 text-sm sm:text-base">
@@ -107,7 +107,7 @@ export default function ListingDetail() {
                   {listing.title}
                 </h1>
 
-                <div className="flex items-center gap-2 text-[#8dc49f] font-bold text-xl sm:text-2xl mb-4 md:mb-6">
+                <div className="flex items-center gap-2 text-[#f2644c] font-bold text-xl sm:text-2xl mb-4 md:mb-6">
                   <Tag className="w-5 h-5 sm:w-6 sm:h-6" />
                   {proposals.length} challenges ontvangen
                 </div>
@@ -133,7 +133,7 @@ export default function ListingDetail() {
             {/* Proposals Section */}
             <div>
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                <Lightbulb className="w-6 h-6 md:w-7 md:h-7 text-[#8dc49f]" />
+                <Lightbulb className="w-6 h-6 md:w-7 md:h-7 text-[#f2644c]" />
                 <h2 className="text-white font-bold text-[22px] sm:text-[24px] md:text-[28px]">
                   Challenges ({proposals.length})
                 </h2>
@@ -212,7 +212,7 @@ export default function ListingDetail() {
                 <Separator className="my-4 md:my-6 bg-[#B2B3B4]" />
 
                 <Button
-                  className="w-full gap-2 bg-[#8dc49f] hover:bg-[#7ab88d] text-white text-sm sm:text-base"
+                  className="w-full gap-2 bg-[#f2644c] hover:bg-[#de5a42] text-white text-sm sm:text-base"
                   onClick={() => navigate(`/listing/${id}/submit-proposal`)}
                 >
                   <Mail className="w-4 h-4" />

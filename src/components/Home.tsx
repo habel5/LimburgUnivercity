@@ -131,22 +131,22 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#2c2a64] via-[#2c2a64] to-[#1f1d4a] min-h-screen">
+    <div className="bg-gradient-to-b from-[#2a2321] via-[#2a2321] to-[#1a1514] min-h-screen">
       {/* Hero Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-28 relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#8dc49f] opacity-[0.03] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-[#8dc49f] opacity-[0.03] rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#39bfb3] opacity-[0.05] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-[#39bfb3] opacity-[0.05] rounded-full blur-3xl"></div>
         
         <div className="text-center max-w-4xl mx-auto relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#8dc49f]/10 border border-[#8dc49f]/20 rounded-full px-4 py-2 mb-6">
-            <Sparkles className="w-4 h-4 text-[#8dc49f]" />
-            <span className="text-[#8dc49f] text-[14px] font-medium">Limburg University × Gemeentes</span>
+          <div className="inline-flex items-center gap-2 bg-[#39bfb3]/10 border border-[#39bfb3]/20 rounded-full px-4 py-2 mb-6">
+            <Sparkles className="w-4 h-4 text-[#39bfb3]" />
+            <span className="text-[#39bfb3] text-[14px] font-medium">Limburg University × Gemeentes</span>
           </div>
           
           <h1 className="text-white font-bold text-[40px] sm:text-[50px] md:text-[72px] leading-[1.1] mb-6 animate-fade-in">
-            Verbind Gemeentes met <span className="bg-gradient-to-r from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">Innovatieve Oplossingen</span>
+            Verbind Gemeentes met <span className="bg-gradient-to-r from-[#f2644c] to-[#39bfb3] bg-clip-text text-transparent">Innovatieve Oplossingen</span>
           </h1>
           <p className="text-gray-300 text-[18px] sm:text-[20px] md:text-[24px] mb-12 leading-relaxed opacity-90 max-w-3xl mx-auto">
             Een platform waar cases van Limburgse gemeentes samenkomen met de kennis en creativiteit van Limburg University
@@ -154,14 +154,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={() => navigate('/cases')}
-              className="bg-gradient-to-r from-[#8dc49f] to-[#7ab88d] hover:from-[#7ab88d] hover:to-[#6aa77d] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
+              className="bg-gradient-to-r from-[#f2644c] to-[#de5a42] hover:from-[#de5a42] hover:to-[#c84f39] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
             >
               Ontdek Cases
               <ArrowRight className="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               onClick={handlePlaceChallenge}
-              className="bg-white hover:bg-gray-50 text-[#2c2a64] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
+              className="bg-white hover:bg-gray-50 text-[#2a2321] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
             >
               Plaats een Case
             </Button>
@@ -170,27 +170,27 @@ export default function Home() {
       </div>
 
       {/* Stats Section with gradient background */}
-      <div className="bg-gradient-to-b from-[#211568] via-[#1d1257] to-[#211568] py-16 md:py-20 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-[#1f1a19] via-[#181312] to-[#1f1a19] py-16 md:py-20 relative overflow-hidden">
         {/* Decorative gradient circles */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#8dc49f] opacity-5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#8dc49f] opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
-              <div className="text-[#8dc49f] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
+              <div className="text-[#39bfb3] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
                 {challengesCounter.count}
               </div>
               <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Cases</div>
             </div>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
-              <div className="text-[#8dc49f] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
+              <div className="text-[#39bfb3] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
                 {proposalsCounter.count}
               </div>
               <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Ingediende Challenges</div>
             </div>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
-              <div className="text-[#8dc49f] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#8dc49f] to-[#a8e4b5] bg-clip-text text-transparent">
+              <div className="text-[#39bfb3] text-[48px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
                 {municipalitiesCounter.count}
               </div>
               <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Deelnemende Gemeentes</div>
@@ -212,16 +212,16 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative">
           {/* Connection arrows for desktop */}
-          <div className="hidden md:block absolute top-[80px] left-[33%] w-[15%] h-[2px] bg-gradient-to-r from-[#8dc49f] to-transparent opacity-30"></div>
-          <div className="hidden md:block absolute top-[80px] right-[33%] w-[15%] h-[2px] bg-gradient-to-r from-transparent to-[#8dc49f] opacity-30"></div>
+          <div className="hidden md:block absolute top-[80px] left-[33%] w-[15%] h-[2px] bg-gradient-to-r from-[#39bfb3] to-transparent opacity-40"></div>
+          <div className="hidden md:block absolute top-[80px] right-[33%] w-[15%] h-[2px] bg-gradient-to-r from-transparent to-[#39bfb3] opacity-40"></div>
           
-          <div className="bg-gradient-to-br from-[#211568] to-[#1a1050] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#8dc49f]/20 relative group">
+          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#f2644c]/20 relative group">
             {/* Step number */}
-            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
+            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
               1
             </div>
             
-            <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
               <Lightbulb className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-white font-bold text-[22px] md:text-[26px] mb-4 text-center">
@@ -232,13 +232,13 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#211568] to-[#1a1050] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#8dc49f]/20 relative group">
+          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#f2644c]/20 relative group">
             {/* Step number */}
-            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
+            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
               2
             </div>
             
-            <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
               <Users className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-white font-bold text-[22px] md:text-[26px] mb-4 text-center">
@@ -249,13 +249,13 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#211568] to-[#1a1050] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#8dc49f]/20 relative group">
+          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-[#f2644c]/20 relative group">
             {/* Step number */}
-            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
+            <div className="absolute -top-4 -left-4 bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-12 h-12 rounded-full flex items-center justify-center shadow-lg font-bold text-white text-[20px]">
               3
             </div>
             
-            <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto group-hover:rotate-6 transition-transform duration-300">
               <Target className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-white font-bold text-[22px] md:text-[26px] mb-4 text-center">
@@ -282,7 +282,7 @@ export default function Home() {
             </div>
             <Button 
               onClick={() => navigate('/cases')}
-              className="bg-[#8dc49f] hover:bg-[#7ab88d] text-white rounded-[8px] px-6 h-[48px] group"
+              className="bg-[#f2644c] hover:bg-[#de5a42] text-white rounded-[8px] px-6 h-[48px] group"
             >
               Bekijk Alle
               <ArrowRight className="w-4 h-4 ml-2 inline transition-transform group-hover:translate-x-1" />
@@ -297,10 +297,10 @@ export default function Home() {
       )}
 
       {/* Features Section - Icon Grid */}
-      <div className="bg-gradient-to-b from-[#211568] to-[#1a1050] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-[#1f1a19] to-[#171312] py-16 md:py-24 relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#8dc49f] opacity-5 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#8dc49f] opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="text-center mb-12 md:mb-16">
@@ -313,8 +313,8 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 max-w-6xl mx-auto">
-            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#8dc49f]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <MapPin className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[20px] md:text-[22px] mb-3">
@@ -325,8 +325,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#8dc49f]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Briefcase className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[20px] md:text-[22px] mb-3">
@@ -337,8 +337,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#8dc49f]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <TrendingUp className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[20px] md:text-[22px] mb-3">
@@ -349,8 +349,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#8dc49f]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#8dc49f] to-[#7ab88d] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Users className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[20px] md:text-[22px] mb-3">
@@ -366,15 +366,15 @@ export default function Home() {
 
       {/* CTA Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-24">
-        <div className="bg-gradient-to-br from-[#211568] to-[#1a1050] rounded-2xl p-10 md:p-16 text-center shadow-2xl border border-[#8dc49f]/20 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-10 md:p-16 text-center shadow-2xl border border-[#f2644c]/20 relative overflow-hidden">
           {/* Decorative glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#8dc49f] opacity-10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#8dc49f] opacity-10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#f2644c] opacity-10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#f2644c] opacity-10 rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 bg-[#8dc49f]/10 border border-[#8dc49f]/20 rounded-full px-4 py-2 mb-6">
-              <CheckCircle2 className="w-4 h-4 text-[#8dc49f]" />
-              <span className="text-[#8dc49f] text-[14px] font-medium">Gratis en toegankelijk</span>
+            <div className="inline-flex items-center gap-2 bg-[#39bfb3]/10 border border-[#39bfb3]/20 rounded-full px-4 py-2 mb-6">
+              <CheckCircle2 className="w-4 h-4 text-[#39bfb3]" />
+              <span className="text-[#39bfb3] text-[14px] font-medium">Gratis en toegankelijk</span>
             </div>
             
             <h2 className="text-white font-bold text-[36px] md:text-[48px] mb-6">
@@ -386,14 +386,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 onClick={() => navigate('/cases')}
-                className="bg-gradient-to-r from-[#8dc49f] to-[#7ab88d] hover:from-[#7ab88d] hover:to-[#6aa77d] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
+                className="bg-gradient-to-r from-[#f2644c] to-[#de5a42] hover:from-[#de5a42] hover:to-[#c84f39] text-white text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold group"
               >
                 Ontdek Cases
                 <ArrowRight className="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" />
               </Button>
               <Button 
                 onClick={handlePlaceChallenge}
-                className="bg-white hover:bg-gray-50 text-[#2c2a64] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
+                className="bg-white hover:bg-gray-50 text-[#2a2321] text-[18px] px-8 h-[56px] rounded-[8px] shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 font-semibold"
               >
                 Plaats een Case
               </Button>
