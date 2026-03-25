@@ -27,7 +27,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           </p>
 
           {/* Badge */}
-          <Badge className="bg-[#f2644c] hover:bg-[#de5a42] text-white text-[17px] md:text-[19px] px-4 py-1.5 rounded-[5px] w-fit mb-4 transition-colors">
+          <Badge className="bg-[#ec644a] hover:bg-[#f56565] text-white text-[17px] md:text-[19px] px-4 py-1.5 rounded-[5px] w-fit mb-4 transition-colors">
             {getMunicipalityLabel(listing.municipality)}
           </Badge>
 

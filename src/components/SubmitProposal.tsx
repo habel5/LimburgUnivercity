@@ -145,7 +145,7 @@ export default function SubmitProposal() {
         <Button
           variant="ghost"
           onClick={() => navigate(`/listing/${id}`)}
-          className="mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
+          className="mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar case
@@ -256,7 +256,7 @@ export default function SubmitProposal() {
               <div className="flex gap-3 pt-4">
                 <Button 
                   type="submit" 
-                  className="flex-1 bg-[#f2644c] hover:bg-[#de5a42] text-white"
+                  className="flex-1 bg-[#ec644a] hover:bg-[#f56565] text-white"
                   disabled={submitting}
                 >
                   {submitting ? 'Bezig...' : 'Challenge Indienen'}

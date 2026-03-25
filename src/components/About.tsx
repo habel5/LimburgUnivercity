@@ -114,15 +114,15 @@ export default function About() {
       {/* Hero Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-28 relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#39bfb3] opacity-[0.05] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-[#39bfb3] opacity-[0.05] rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#0b6168] opacity-[0.05] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-[#0b6168] opacity-[0.05] rounded-full blur-3xl"></div>
         
         <div className="relative z-10">
           {/* Badge */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-[#39bfb3]/10 border border-[#39bfb3]/20 rounded-full px-4 py-2">
-              <Sparkles className="w-4 h-4 text-[#39bfb3]" />
-              <span className="text-[#39bfb3] text-[14px] font-medium">Limburg University × Gemeentes</span>
+            <div className="inline-flex items-center gap-2 bg-[#0b6168]/10 border border-[#0b6168]/20 rounded-full px-4 py-2">
+              <Sparkles className="w-4 h-4 text-[#0b6168]" />
+              <span className="text-[#0b6168] text-[14px] font-medium">Limburg University × Gemeenten</span>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ export default function About() {
           <div className="hidden md:flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="lg:w-1/2 space-y-8">
               <h1 className="text-white font-bold text-[48px] lg:text-[64px] leading-[1.1]">
-                Over <span className="bg-gradient-to-r from-[#f2644c] to-[#39bfb3] bg-clip-text text-transparent">Ons Platform</span>
+                Over <span className="bg-gradient-to-r from-[#ec644a] to-[#0b6168] bg-clip-text text-transparent">Ons Platform</span>
               </h1>
 
               <div className="text-gray-300 text-[18px] lg:text-[20px] leading-relaxed space-y-6">
@@ -157,13 +157,13 @@ export default function About() {
                 </p>
                 
                 {/* Motto */}
-                <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-6 border border-[#f2644c]/20 mt-8">
+                <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-6 border border-[#ec644a]/20 mt-8">
                   <div className="flex items-start gap-4">
-                    <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Lightbulb className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-[#f2644c] font-bold text-[20px] lg:text-[24px] mb-2">
+                      <p className="text-[#ec644a] font-bold text-[20px] lg:text-[24px] mb-2">
                         "The City Is Our Campus"
                       </p>
                       <p className="text-gray-300 text-[16px] lg:text-[18px] opacity-80">
@@ -178,7 +178,7 @@ export default function About() {
             </div>
 
             <div className="lg:w-1/2">
-              <div className="rounded-2xl overflow-hidden shadow-2xl border border-[#f2644c]/10">
+              <div className="rounded-2xl overflow-hidden shadow-2xl border border-[#ec644a]/10">
                 <img
                   src={imgKennisFestivalBannerEdited1}
                   alt="Kennis Festival Banner"
@@ -190,7 +190,7 @@ export default function About() {
 
           {/* Mobile View */}
           <div className="md:hidden flex flex-col items-center space-y-8">
-            <div className="w-full max-w-[354px] rounded-2xl overflow-hidden shadow-2xl border border-[#f2644c]/10">
+            <div className="w-full max-w-[354px] rounded-2xl overflow-hidden shadow-2xl border border-[#ec644a]/10">
               <img
                 src={imgKennisFestivalBannerEdited1}
                 alt="Kennis Festival Banner"
@@ -199,7 +199,7 @@ export default function About() {
             </div>
 
             <h1 className="text-white font-bold text-[32px] text-center">
-              Over <span className="bg-gradient-to-r from-[#f2644c] to-[#39bfb3] bg-clip-text text-transparent">Ons Platform</span>
+              Over <span className="bg-gradient-to-r from-[#ec644a] to-[#0b6168] bg-clip-text text-transparent">Ons Platform</span>
             </h1>
 
             <div className="max-w-[320px] text-gray-300 text-[16px] text-center leading-relaxed space-y-4">
@@ -215,8 +215,8 @@ export default function About() {
                 kennis te combineren met praktijkervaring.
               </p>
               
-              <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-xl p-4 border border-[#f2644c]/20 mt-6">
-                <p className="text-[#f2644c] font-bold text-[18px] mb-2">
+              <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-xl p-4 border border-[#ec644a]/20 mt-6">
+                <p className="text-[#ec644a] font-bold text-[18px] mb-2">
                   "The City Is Our Campus"
                 </p>
                 <p className="text-gray-300 text-[14px] opacity-80">
@@ -231,8 +231,8 @@ export default function About() {
       {/* Stats Section */}
       <div className="bg-gradient-to-b from-[#1f1a19] via-[#181312] to-[#1f1a19] py-16 md:py-20 relative overflow-hidden">
         {/* Decorative gradient circles */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="text-center mb-12">
@@ -247,24 +247,24 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <Link 
               to="/cases" 
-              className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 cursor-pointer"
+              className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 cursor-pointer"
             >
-              <div className="text-[#39bfb3] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
+              <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedChallenges}
               </div>
               <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Cases</div>
             </Link>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
-              <div className="text-[#39bfb3] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
+              <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedProposals}
               </div>
               <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Ingediende Challenges</div>
             </div>
             <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
-              <div className="text-[#39bfb3] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#39bfb3] to-[#8fe3da] bg-clip-text text-transparent">
+              <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedMunicipalities}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Deelnemende Gemeentes</div>
+              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Deelnemende Gemeenten</div>
             </div>
           </div>
         </div>
@@ -282,12 +282,12 @@ export default function About() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#f2644c]/20 hover:scale-105 transition-all duration-300 group">
+          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#ec644a]/20 hover:scale-105 transition-all duration-300 group">
             <div className="flex items-start gap-4 mb-6">
-              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
+              <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-[#f2644c] font-bold text-[28px] md:text-[32px]">
+              <h3 className="text-[#ec644a] font-bold text-[28px] md:text-[32px]">
                 Onze Visie
               </h3>
             </div>
@@ -300,12 +300,12 @@ export default function About() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#f2644c]/20 hover:scale-105 transition-all duration-300 group">
+          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#ec644a]/20 hover:scale-105 transition-all duration-300 group">
             <div className="flex items-start gap-4 mb-6">
-              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
+              <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-[#f2644c] font-bold text-[28px] md:text-[32px]">
+              <h3 className="text-[#ec644a] font-bold text-[28px] md:text-[32px]">
                 Onze Missie
               </h3>
             </div>
@@ -322,8 +322,8 @@ export default function About() {
       {/* Core Values Section */}
       <div className="bg-gradient-to-b from-[#1f1a19] to-[#171312] py-16 md:py-24 relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#39bfb3] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="text-center mb-12 md:mb-16">
@@ -336,8 +336,8 @@ export default function About() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto">
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Users className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
@@ -348,8 +348,8 @@ export default function About() {
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Lightbulb className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
@@ -360,8 +360,8 @@ export default function About() {
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#f2644c] to-[#de5a42] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
+            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Award className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
@@ -391,7 +391,7 @@ export default function About() {
             href="https://vistacollege.nl/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#f2644c]/30 transition-all duration-300 hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
+            className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300 hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
           >
             <img
               src={imgVistaLogo}

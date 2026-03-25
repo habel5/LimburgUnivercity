@@ -15,7 +15,7 @@ export function ProposalCard({ proposal }: ProposalCardProps) {
       <CardContent className="p-5 md:p-6">
         {/* Title and Description */}
         <div className="flex items-start gap-3 mb-5">
-          <MessageSquare className="w-6 h-6 text-[#f2644c] mt-1 flex-shrink-0" />
+          <MessageSquare className="w-6 h-6 text-[#ec644a] mt-1 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-[20px] md:text-[22px] text-black mb-2 line-clamp-2">
               {proposal.title}
