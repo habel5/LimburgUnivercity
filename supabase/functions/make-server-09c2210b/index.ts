@@ -408,17 +408,21 @@ app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
     const challenge = await kv.get(`challenge:${id}`);
     if (!challenge) return c.json({ error: "Challenge not found" }, 404);
 
-    await kv.del(`challenge:${id}`);
-
     const allProposals = await kv.getByPrefix("proposal:");
-    for (const proposal of allProposals.filter((item) => item.challenge_id === id)) {
+    const relatedProposals = allProposals.filter(
+      (item) => item && typeof item === "object" && item.challenge_id === id && item.id,
+    );
+
+    for (const proposal of relatedProposals) {
       await kv.del(`proposal:${proposal.id}`);
     }
+
+    await kv.del(`challenge:${id}`);
 
     return c.json({ success: true });
   } catch (error) {
     console.error("Error deleting challenge:", error);
-    return c.json({ error: "Failed to delete challenge" }, 500);
+    return c.json({ error: `Failed to delete challenge: ${String(error)}` }, 500);
   }
 });
 

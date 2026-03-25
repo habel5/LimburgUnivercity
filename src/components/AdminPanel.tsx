@@ -54,7 +54,7 @@ interface ChallengeFormState {
 
 export default function AdminPanel() {
   const navigate = useNavigate();
-  const { isAuthenticated, accessToken } = useAuth();
+  const { isAuthenticated, accessToken, logout } = useAuth();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Stats | null>(null);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
@@ -77,6 +77,22 @@ export default function AdminPanel() {
       fetchData();
     }
   }, [isAuthenticated, accessToken]);
+
+  const handleExpiredSession = () => {
+    logout();
+    toast.error('Je adminsessie is verlopen. Log opnieuw in om verder te gaan.');
+    navigate('/');
+  };
+
+  const getResponseErrorMessage = async (response: Response, fallback: string) => {
+    try {
+      const errorData = await response.json();
+      return errorData.error || fallback;
+    } catch {
+      const errorText = await response.text();
+      return errorText || fallback;
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -102,14 +118,24 @@ export default function AdminPanel() {
         const parsedChallenges = await challengesResponse.json();
         challengesData = Array.isArray(parsedChallenges) ? parsedChallenges : [];
       } else {
-        console.error('Failed to fetch challenges:', challengesResponse.status, challengesResponse.statusText);
+        const errorMessage = await getResponseErrorMessage(challengesResponse, 'Failed to fetch challenges');
+        if (challengesResponse.status === 401 && errorMessage.toLowerCase().includes('session')) {
+          handleExpiredSession();
+          return;
+        }
+        console.error('Failed to fetch challenges:', challengesResponse.status, errorMessage);
       }
 
       if (proposalsResponse.ok) {
         const parsedProposals = await proposalsResponse.json();
         proposalsData = Array.isArray(parsedProposals) ? parsedProposals : [];
       } else {
-        console.error('Failed to fetch proposals:', proposalsResponse.status, proposalsResponse.statusText);
+        const errorMessage = await getResponseErrorMessage(proposalsResponse, 'Failed to fetch proposals');
+        if (proposalsResponse.status === 401 && errorMessage.toLowerCase().includes('session')) {
+          handleExpiredSession();
+          return;
+        }
+        console.error('Failed to fetch proposals:', proposalsResponse.status, errorMessage);
       }
 
       setChallenges(challengesData);
@@ -167,15 +193,19 @@ export default function AdminPanel() {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to delete challenge');
+        const errorMessage = await getResponseErrorMessage(response, 'Failed to delete challenge');
+        if (response.status === 401 && errorMessage.toLowerCase().includes('session')) {
+          handleExpiredSession();
+          return;
+        }
+        throw new Error(errorMessage);
       }
 
       toast.success(`Case ${id} verwijderd`);
-      fetchData();
+      await fetchData();
     } catch (error) {
       console.error('Error deleting challenge:', error);
-      toast.error('Er is een fout opgetreden bij het verwijderen');
+      toast.error(error instanceof Error ? error.message : 'Er is een fout opgetreden bij het verwijderen');
     } finally {
       setDeletingId(null);
     }
@@ -201,12 +231,16 @@ export default function AdminPanel() {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to delete proposal');
+        const errorMessage = await getResponseErrorMessage(response, 'Failed to delete proposal');
+        if (response.status === 401 && errorMessage.toLowerCase().includes('session')) {
+          handleExpiredSession();
+          return;
+        }
+        throw new Error(errorMessage);
       }
 
       toast.success(`Voorstel ${proposalId} verwijderd`);
-      fetchData();
+      await fetchData();
     } catch (error) {
       console.error('Error deleting proposal:', error);
       toast.error('Er is een fout opgetreden bij het verwijderen');
@@ -267,8 +301,12 @@ export default function AdminPanel() {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update challenge");
+        const errorMessage = await getResponseErrorMessage(response, "Failed to update challenge");
+        if (response.status === 401 && errorMessage.toLowerCase().includes('session')) {
+          handleExpiredSession();
+          return;
+        }
+        throw new Error(errorMessage);
       }
 
       toast.success(`Case ${editingChallenge.id} bijgewerkt`);
@@ -305,7 +343,7 @@ export default function AdminPanel() {
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
-          className="mb-6 gap-2 text-white hover:text-[#f2644c] hover:bg-white/10"
+          className="mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar home
@@ -315,7 +353,7 @@ export default function AdminPanel() {
           <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
             <CardHeader className="pb-6">
               <CardTitle className="text-[26px] font-bold text-black flex items-center gap-2">
-                <Database className="w-6 h-6 text-[#f2644c]" />
+                <Database className="w-6 h-6 text-[#ec644a]" />
                 Admin Paneel
               </CardTitle>
               <CardDescription className="text-[18px] text-gray-700">
@@ -337,7 +375,7 @@ export default function AdminPanel() {
                 <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                   <CardHeader>
                     <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                      <BarChart3 className="w-5 h-5 text-[#f2644c]" />
+                      <BarChart3 className="w-5 h-5 text-[#ec644a]" />
                       Statistieken
                     </CardTitle>
                   </CardHeader>
@@ -352,7 +390,7 @@ export default function AdminPanel() {
                         <div className="text-sm text-gray-600">Totaal Voorstellen</div>
                       </div>
                       <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#f2644c]">
+                        <div className="text-2xl font-bold text-[#ec644a]">
                           {stats.totalChallenges > 0 ? (stats.totalProposals / stats.totalChallenges).toFixed(1) : '0'}
                         </div>
                         <div className="text-sm text-gray-600">Gem. Voorstellen/Case</div>
@@ -400,7 +438,7 @@ export default function AdminPanel() {
               <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <CardHeader>
                   <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#f2644c]" />
+                    <FileText className="w-5 h-5 text-[#ec644a]" />
                     Cases ({challenges.length})
                   </CardTitle>
                 </CardHeader>
@@ -417,7 +455,7 @@ export default function AdminPanel() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-mono text-sm text-gray-500">{challenge.id}</span>
-                              <span className="text-xs bg-[#f2644c] text-white px-2 py-0.5 rounded">
+                              <span className="text-xs bg-[#ec644a] text-white px-2 py-0.5 rounded">
                                 {municipalityLabels[challenge.municipality as keyof typeof municipalityLabels] || challenge.municipality}
                               </span>
                               <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
@@ -435,7 +473,7 @@ export default function AdminPanel() {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleStartEdit(challenge)}
-                              className="text-[#2a2321] hover:text-[#f2644c] hover:bg-orange-50"
+                              className="text-[#2a2321] hover:text-[#ec644a] hover:bg-orange-50"
                             >
                               <Pencil className="w-4 h-4" />
                             </Button>
@@ -460,7 +498,7 @@ export default function AdminPanel() {
               <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <CardHeader>
                   <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#f2644c]" />
+                    <FileText className="w-5 h-5 text-[#ec644a]" />
                     Voorstellen ({proposals.length})
                   </CardTitle>
                 </CardHeader>
@@ -623,7 +661,7 @@ export default function AdminPanel() {
               type="button"
               onClick={handleSaveChallenge}
               disabled={savingChallenge}
-              className="bg-[#f2644c] hover:bg-[#de5a42] text-white"
+              className="bg-[#ec644a] hover:bg-[#f56565] text-white"
             >
               {savingChallenge ? "Opslaan..." : "Wijzigingen opslaan"}
             </Button>
