@@ -21,6 +21,7 @@ import { projectId, publicAnonKey } from '../config/env';
 export default function AddListing() {
   const navigate = useNavigate();
   const { isAuthenticated, user, accessToken } = useAuth();
+  const canCreateCase = user?.role === 'gemeente' || user?.role === 'admin';
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -35,13 +36,16 @@ export default function AddListing() {
     if (!isAuthenticated) {
       toast.error('Je moet inloggen om een case te plaatsen');
       navigate('/');
+    } else if (!canCreateCase) {
+      toast.error('Alleen gemeente- en adminaccounts kunnen cases plaatsen');
+      navigate('/cases');
     } else if (user) {
       setFormData(prev => ({
         ...prev,
         email: user.email,
       }));
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [isAuthenticated, canCreateCase, user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,7 +107,7 @@ export default function AddListing() {
     }
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !canCreateCase) {
     return null;
   }
 

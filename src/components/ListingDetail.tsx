@@ -19,6 +19,7 @@ export default function ListingDetail() {
   const [loading, setLoading] = useState(true);
 
   const isAdmin = user?.role === 'admin';
+  const canSubmitChallenge = user?.role === 'onderwijs' || user?.role === 'admin';
 
   useEffect(() => {
     fetchChallengeDetails();
@@ -211,17 +212,25 @@ export default function ListingDetail() {
 
                 <Separator className="my-4 md:my-6 bg-[#B2B3B4]" />
 
-                <Button
-                  className="w-full gap-2 bg-[#ec644a] hover:bg-[#f56565] text-white text-sm sm:text-base"
-                  onClick={() => navigate(`/listing/${id}/submit-proposal`)}
-                >
-                  <Mail className="w-4 h-4" />
-                  Dien een challenge in
-                </Button>
+                {canSubmitChallenge ? (
+                  <>
+                    <Button
+                      className="w-full gap-2 bg-[#ec644a] hover:bg-[#f56565] text-white text-sm sm:text-base"
+                      onClick={() => navigate(`/listing/${id}/submit-proposal`)}
+                    >
+                      <Mail className="w-4 h-4" />
+                      Dien een challenge in
+                    </Button>
 
-                <p className="text-[10px] sm:text-xs text-gray-600 mt-3 md:mt-4 text-center">
-                  Deel je ideeën en challenges voor deze case
-                </p>
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-3 md:mt-4 text-center">
+                      Deel je ideeën en challenges voor deze case
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-[11px] sm:text-xs text-gray-600 mt-1 text-center">
+                    Log in met een onderwijsaccount om een challenge in te dienen
+                  </p>
+                )}
               </CardContent>
             </Card>
           </div>

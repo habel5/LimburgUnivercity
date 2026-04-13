@@ -6,6 +6,17 @@ import * as kv from "./kv_store.ts";
 
 const app = new Hono();
 
+type UserRole = "admin" | "gemeente" | "onderwijs";
+
+interface AccountRecord {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: UserRole;
+  name: string;
+  created_at: string;
+}
+
 createClient(
   Deno.env.get("SUPABASE_URL")!,
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
@@ -55,29 +66,56 @@ async function hashPassword(password: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-async function initializeDefaultAdmin() {
+function getAccountDefinitions() {
+  return [
+    {
+      role: "admin" as const,
+      email: Deno.env.get("ADMIN_EMAIL"),
+      password: Deno.env.get("ADMIN_PASSWORD"),
+      name: Deno.env.get("ADMIN_NAME") ?? "Admin",
+    },
+    {
+      role: "gemeente" as const,
+      email: Deno.env.get("MUNICIPALITY_EMAIL"),
+      password: Deno.env.get("MUNICIPALITY_PASSWORD"),
+      name: Deno.env.get("MUNICIPALITY_NAME") ?? "Gemeente",
+    },
+    {
+      role: "onderwijs" as const,
+      email: Deno.env.get("EDUCATION_EMAIL"),
+      password: Deno.env.get("EDUCATION_PASSWORD"),
+      name: Deno.env.get("EDUCATION_NAME") ?? "Onderwijs",
+    },
+  ];
+}
+
+async function initializeDefaultAccounts() {
   try {
-    const defaultEmail = Deno.env.get("ADMIN_EMAIL");
-    const defaultPassword = Deno.env.get("ADMIN_PASSWORD");
+    for (const definition of getAccountDefinitions()) {
+      if (!definition.email || !definition.password) {
+        continue;
+      }
 
-    if (!defaultEmail || !defaultPassword) {
-      console.error("ADMIN_EMAIL or ADMIN_PASSWORD environment variables not set");
-      return;
+      const passwordHash = await hashPassword(definition.password);
+      const existingAccount = await kv.get(`account:${definition.role}`);
+
+      const account: AccountRecord = {
+        id: existingAccount?.id ?? crypto.randomUUID(),
+        email: definition.email,
+        passwordHash,
+        role: definition.role,
+        name: definition.name,
+        created_at: existingAccount?.created_at ?? new Date().toISOString(),
+      };
+
+      await kv.set(`account:${definition.role}`, account);
     }
-
-    const passwordHash = await hashPassword(defaultPassword);
-    await kv.set("admin:credentials", {
-      id: crypto.randomUUID(),
-      email: defaultEmail,
-      passwordHash,
-      created_at: new Date().toISOString(),
-    });
   } catch (error) {
-    console.error("Error initializing default admin:", error);
+    console.error("Error initializing default accounts:", error);
   }
 }
 
-await initializeDefaultAdmin();
+await initializeDefaultAccounts();
 
 app.use("*", logger(console.log));
 app.use(
@@ -96,23 +134,25 @@ app.get("/make-server-09c2210b/health", (c) => c.json({ status: "ok" }));
 app.post("/make-server-09c2210b/login", async (c) => {
   try {
     const { email, password } = await c.req.json();
-    const adminCredentials = await kv.get("admin:credentials");
+    const accounts = (await kv.getByPrefix("account:")) as AccountRecord[];
+    const matchedAccount = accounts.find((account) => account?.email === email);
 
-    if (!adminCredentials || adminCredentials.email !== email) {
+    if (!matchedAccount) {
       return c.json({ error: "Ongeldige inloggegevens" }, 401);
     }
 
     const passwordHash = await hashPassword(password);
-    if (passwordHash !== adminCredentials.passwordHash) {
+    if (passwordHash !== matchedAccount.passwordHash) {
       return c.json({ error: "Ongeldige inloggegevens" }, 401);
     }
 
     const sessionToken = `token_${crypto.randomUUID()}`;
     await kv.set(`session:${sessionToken}`, {
       user: {
-        id: adminCredentials.id,
-        email: adminCredentials.email,
-        role: "admin",
+        id: matchedAccount.id,
+        email: matchedAccount.email,
+        role: matchedAccount.role,
+        name: matchedAccount.name,
       },
       created_at: new Date().toISOString(),
       expires_at: Date.now() + 24 * 60 * 60 * 1000,
@@ -121,10 +161,10 @@ app.post("/make-server-09c2210b/login", async (c) => {
     return c.json({
       access_token: sessionToken,
       user: {
-        id: adminCredentials.id,
-        email: adminCredentials.email,
-        role: "admin",
-        name: "Admin",
+        id: matchedAccount.id,
+        email: matchedAccount.email,
+        role: matchedAccount.role,
+        name: matchedAccount.name,
       },
     });
   } catch (error) {
@@ -207,7 +247,7 @@ app.get("/make-server-09c2210b/stats", async (c) => {
   }
 });
 
-async function requireAdmin(c: any) {
+async function requireSession(c: any) {
   const sessionToken = c.req.header("X-Session-Token");
   if (!sessionToken) return { error: "Unauthorized", status: 401 };
 
@@ -222,9 +262,21 @@ async function requireAdmin(c: any) {
   return { session };
 }
 
+async function requireRoles(c: any, roles: UserRole[]) {
+  const auth = await requireSession(c);
+  if ("error" in auth) return auth;
+
+  const userRole = auth.session.user?.role as UserRole | undefined;
+  if (!userRole || !roles.includes(userRole)) {
+    return { error: "Forbidden", status: 403 };
+  }
+
+  return auth;
+}
+
 app.post("/make-server-09c2210b/proposals", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["onderwijs", "admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const body = await c.req.json();
@@ -242,6 +294,8 @@ app.post("/make-server-09c2210b/proposals", async (c) => {
       email: body.email,
       organization: body.organization,
       interest_type: body.interest_type,
+      created_by_email: auth.session.user?.email,
+      created_by_role: auth.session.user?.role,
       created_at: new Date().toISOString(),
     };
 
@@ -255,7 +309,7 @@ app.post("/make-server-09c2210b/proposals", async (c) => {
 
 app.post("/make-server-09c2210b/challenges", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["gemeente", "admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const body = await c.req.json();
@@ -273,6 +327,8 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
       author: body.author,
       email: body.email,
       organization: body.organization,
+      created_by_email: auth.session.user?.email,
+      created_by_role: auth.session.user?.role,
       created_at: new Date().toISOString(),
     };
 
@@ -370,7 +426,7 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
 
 app.put("/make-server-09c2210b/challenges/:id", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const id = c.req.param("id");
@@ -401,7 +457,7 @@ app.put("/make-server-09c2210b/challenges/:id", async (c) => {
 
 app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const id = c.req.param("id");
@@ -428,7 +484,7 @@ app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
 
 app.delete("/make-server-09c2210b/challenges/:challengeId/proposals/:proposalId", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const proposalId = c.req.param("proposalId");
@@ -445,7 +501,7 @@ app.delete("/make-server-09c2210b/challenges/:challengeId/proposals/:proposalId"
 
 app.post("/make-server-09c2210b/seed", async (c) => {
   try {
-    const auth = await requireAdmin(c);
+    const auth = await requireRoles(c, ["admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const challenges = [

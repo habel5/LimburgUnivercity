@@ -54,7 +54,8 @@ interface ChallengeFormState {
 
 export default function AdminPanel() {
   const navigate = useNavigate();
-  const { isAuthenticated, accessToken, logout } = useAuth();
+  const { isAuthenticated, accessToken, logout, user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Stats | null>(null);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
@@ -70,13 +71,17 @@ export default function AdminPanel() {
       navigate('/');
       return;
     }
-  }, [isAuthenticated, accessToken, navigate]);
+    if (user && !isAdmin) {
+      toast.error('Alleen adminaccounts hebben toegang tot het admin paneel.');
+      navigate('/');
+    }
+  }, [isAuthenticated, accessToken, user, isAdmin, navigate]);
 
   useEffect(() => {
-    if (isAuthenticated || accessToken) {
+    if ((isAuthenticated || accessToken) && isAdmin) {
       fetchData();
     }
-  }, [isAuthenticated, accessToken]);
+  }, [isAuthenticated, accessToken, isAdmin]);
 
   const handleExpiredSession = () => {
     logout();

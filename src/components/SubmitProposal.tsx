@@ -15,7 +15,8 @@ import { projectId, publicAnonKey } from '../config/env';
 export default function SubmitProposal() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isAuthenticated, accessToken } = useAuth();
+  const { isAuthenticated, accessToken, user } = useAuth();
+  const canSubmitProposal = user?.role === 'onderwijs' || user?.role === 'admin';
   const [submitting, setSubmitting] = useState(false);
   const [challenge, setChallenge] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,8 +37,11 @@ export default function SubmitProposal() {
     if (!isAuthenticated) {
       toast.error('Je moet inloggen om een challenge in te dienen');
       navigate(`/listing/${id}`);
+    } else if (!canSubmitProposal) {
+      toast.error('Alleen onderwijs- en adminaccounts kunnen challenges indienen');
+      navigate(`/listing/${id}`);
     }
-  }, [isAuthenticated, navigate, id]);
+  }, [isAuthenticated, canSubmitProposal, navigate, id]);
 
   const fetchChallenge = async () => {
     try {
@@ -135,7 +139,7 @@ export default function SubmitProposal() {
     );
   }
 
-  if (!isAuthenticated || !challenge) {
+  if (!isAuthenticated || !canSubmitProposal || !challenge) {
     return null;
   }
 

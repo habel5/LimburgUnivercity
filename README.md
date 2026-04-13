@@ -10,6 +10,17 @@ De website heeft:
 - een formulier om een voorstel in te dienen
 - een admingedeelte voor beheer
 
+## Rollen in het project
+
+De website ondersteunt drie soorten accounts:
+
+- `admin`
+  Kan alles beheren in het admin-paneel.
+- `gemeente`
+  Kan nieuwe cases plaatsen.
+- `onderwijs`
+  Kan challenges of voorstellen indienen op bestaande cases.
+
 ## Waarvoor is dit project?
 
 Dit project is bedoeld als online platform voor vraag en aanbod rondom maatschappelijke of organisatorische cases. Een organisatie plaatst een case en bezoekers kunnen daarop reageren.
@@ -50,6 +61,15 @@ Daarin staan de gegevens om verbinding te maken met de database:
 ```bash
 VITE_SUPABASE_PROJECT_ID=je-project-id
 VITE_SUPABASE_ANON_KEY=je-anon-key
+ADMIN_EMAIL=admin@email.nl
+ADMIN_PASSWORD=sterk-wachtwoord
+ADMIN_NAME=Platform Admin
+MUNICIPALITY_EMAIL=gemeente@email.nl
+MUNICIPALITY_PASSWORD=sterk-wachtwoord
+MUNICIPALITY_NAME=Gemeente Account
+EDUCATION_EMAIL=onderwijs@email.nl
+EDUCATION_PASSWORD=sterk-wachtwoord
+EDUCATION_NAME=Onderwijs Account
 ```
 
 Je kunt ook `.env.example` als voorbeeld gebruiken.

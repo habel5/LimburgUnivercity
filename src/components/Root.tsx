@@ -11,6 +11,8 @@ export default function Root() {
   const location = useLocation();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const canCreateCase = user?.role === "gemeente" || user?.role === "admin";
+  const isAdmin = user?.role === "admin";
 
   const navItems = [
     { to: "/", label: "Home", exact: true },
@@ -95,7 +97,7 @@ export default function Root() {
               </nav>
 
               <div className="flex items-center justify-end gap-2 2xl:gap-4">
-                {isAuthenticated && (
+                {isAdmin && (
                   <Link
                     to="/admin"
                     className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-2.5 text-[15px] transition-all xl:px-4 xl:text-[16px] 2xl:px-4 2xl:py-3 2xl:text-[17px] ${
@@ -108,13 +110,15 @@ export default function Root() {
                     Admin
                   </Link>
                 )}
-                <Link
-                  to="/add"
-                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#0b6168] px-3 py-2.5 text-[15px] text-white shadow-[0_16px_30px_rgba(11,97,104,0.35)] transition-all hover:-translate-y-0.5 hover:bg-[#084f56] xl:px-4 xl:text-[16px] 2xl:px-5 2xl:py-3 2xl:text-[17px]"
-                >
-                  <Plus className="h-4 w-4" />
-                  Plaats case
-                </Link>
+                {canCreateCase && (
+                  <Link
+                    to="/add"
+                    className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#0b6168] px-3 py-2.5 text-[15px] text-white shadow-[0_16px_30px_rgba(11,97,104,0.35)] transition-all hover:-translate-y-0.5 hover:bg-[#084f56] xl:px-4 xl:text-[16px] 2xl:px-5 2xl:py-3 2xl:text-[17px]"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Plaats case
+                  </Link>
+                )}
                 {isAuthenticated ? (
                   <div className="flex items-center gap-2 2xl:gap-4">
                     <div className="rounded-full border border-[#ec644a]/20 bg-[#ec644a]/10 px-3 py-2 text-right xl:px-4">
@@ -171,7 +175,7 @@ export default function Root() {
                   })}
                 </div>
               </div>
-              {isAuthenticated && (
+              {isAdmin && (
                 <Link
                   to="/admin"
                   onClick={() => setMobileMenuOpen(false)}
@@ -181,14 +185,16 @@ export default function Root() {
                   Admin
                 </Link>
               )}
-              <Link
-                to="/add"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 rounded-2xl bg-[#0b6168] px-4 py-3 text-[18px] text-white shadow-[0_16px_30px_rgba(11,97,104,0.32)] transition-all hover:bg-[#084f56]"
-              >
-                <Plus className="h-4 w-4" />
-                Plaats case
-              </Link>
+              {canCreateCase && (
+                <Link
+                  to="/add"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-[#0b6168] px-4 py-3 text-[18px] text-white shadow-[0_16px_30px_rgba(11,97,104,0.32)] transition-all hover:bg-[#084f56]"
+                >
+                  <Plus className="h-4 w-4" />
+                  Plaats case
+                </Link>
+              )}
               {isAuthenticated ? (
                 <>
                   <div className="rounded-2xl border border-[#ec644a]/20 bg-[#ec644a]/10 px-4 py-3">

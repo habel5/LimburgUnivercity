@@ -7,6 +7,7 @@ import { Lightbulb, Users, Target, TrendingUp, MapPin, Briefcase, Sparkles, Arro
 import { projectId, publicAnonKey } from '../config/env';
 import { Listing } from "../lib/supabase";
 import { ListingCard } from "./ListingCard";
+import { toast } from "sonner";
 
 // Counter animation hook
 function useCounter(end: number, duration: number = 2000, delay: number = 0) {
@@ -43,7 +44,7 @@ function useCounter(end: number, duration: number = 2000, delay: number = 0) {
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [stats, setStats] = useState({ challenges: 0, proposals: 0, municipalities: 0 });
   const [recentChallenges, setRecentChallenges] = useState<Listing[]>([]);
@@ -114,10 +115,15 @@ export default function Home() {
   };
 
   const handlePlaceChallenge = () => {
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
+    if (user?.role === 'gemeente' || user?.role === 'admin') {
       navigate('/add');
     } else {
-      setShowLoginModal(true);
+      toast.error('Alleen gemeente- en adminaccounts kunnen cases plaatsen');
     }
   };
 

@@ -25,7 +25,7 @@ export default function Challenges() {
   const [selectedCategory, setSelectedCategory] = useState<"all" | Category>("all");
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
 
@@ -80,6 +80,12 @@ export default function Challenges() {
       setShowLoginModal(true);
       return;
     }
+
+    if (user?.role !== 'gemeente' && user?.role !== 'admin') {
+      toast.error('Alleen gemeente- en adminaccounts kunnen cases plaatsen');
+      return;
+    }
+
     navigate('/add');
   };
 

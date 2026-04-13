@@ -1,9 +1,12 @@
 import { create } from 'zustand';
 import { projectId, publicAnonKey } from '../config/env';
 
+export type UserRole = 'admin' | 'gemeente' | 'onderwijs';
+
 interface User {
+  id?: string;
   email: string;
-  role?: string;
+  role?: UserRole;
   name?: string;
 }
 
@@ -13,6 +16,8 @@ interface AuthState {
   accessToken: string | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  hasRole: (role: UserRole) => boolean;
+  hasAnyRole: (roles: UserRole[]) => boolean;
 }
 
 export const useAuth = create<AuthState>((set) => ({
@@ -53,15 +58,22 @@ export const useAuth = create<AuthState>((set) => ({
       }
       
       if (data.access_token) {
+        const nextUser = {
+          id: data.user.id,
+          email: data.user.email,
+          role: data.user.role as UserRole,
+          name: data.user.name,
+        };
+
         set({
-          user: { email: data.user.email, role: data.user.role, name: data.user.name },
+          user: nextUser,
           isAuthenticated: true,
           accessToken: data.access_token,
         });
         
         // Store in localStorage for persistence
         localStorage.setItem('auth-storage', JSON.stringify({
-          user: { email: data.user.email, role: data.user.role, name: data.user.name },
+          user: nextUser,
           isAuthenticated: true,
           accessToken: data.access_token,
         }));
@@ -83,6 +95,11 @@ export const useAuth = create<AuthState>((set) => ({
       accessToken: null,
     });
     localStorage.removeItem('auth-storage');
+  },
+  hasRole: (role) => useAuth.getState().user?.role === role,
+  hasAnyRole: (roles) => {
+    const currentRole = useAuth.getState().user?.role;
+    return !!currentRole && roles.includes(currentRole);
   },
 }));
 

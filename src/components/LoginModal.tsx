@@ -59,7 +59,7 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
           </button>
           <CardTitle className="text-[26px] font-bold text-black">Inloggen</CardTitle>
           <CardDescription className="text-[18px] text-gray-700">
-            Log in als admin
+            Log in als admin, gemeente of onderwijs
           </CardDescription>
         </CardHeader>
         <CardContent>
