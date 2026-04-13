@@ -13,6 +13,10 @@ export default function Root() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const canCreateCase = user?.role === "gemeente" || user?.role === "admin";
   const isAdmin = user?.role === "admin";
+  const displayName =
+    user?.role === "onderwijs"
+      ? "Onderwijs"
+      : user?.name || user?.email || "Admin";
 
   const navItems = [
     { to: "/", label: "Home", exact: true },
@@ -123,7 +127,7 @@ export default function Root() {
                   <div className="flex items-center gap-2 2xl:gap-4">
                     <div className="rounded-full border border-[#ec644a]/20 bg-[#ec644a]/10 px-3 py-2 text-right xl:px-4">
                       <p className="text-[11px] uppercase tracking-[0.24em] text-[#f6b4a7]">Ingelogd als</p>
-                      <span className="text-[13px] text-white xl:text-[14px] 2xl:text-[16px]">{user?.name || user?.email || "Admin"}</span>
+                      <span className="text-[13px] text-white xl:text-[14px] 2xl:text-[16px]">{displayName}</span>
                     </div>
                     <button
                       onClick={handleLogout}
@@ -199,7 +203,7 @@ export default function Root() {
                 <>
                   <div className="rounded-2xl border border-[#ec644a]/20 bg-[#ec644a]/10 px-4 py-3">
                     <p className="text-[11px] uppercase tracking-[0.24em] text-[#f6b4a7]">Ingelogd als</p>
-                    <div className="pt-1 text-[14px] text-white">{user?.name || user?.email || "Admin"}</div>
+                    <div className="pt-1 text-[14px] text-white">{displayName}</div>
                   </div>
                   <button
                     onClick={handleLogout}

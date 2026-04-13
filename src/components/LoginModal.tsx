@@ -71,7 +71,7 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
               <Input
                 id="email"
                 type="email"
-                placeholder="voorbeeld@gemeente.nl"
+                placeholder="voorbeeld@limburgunivercity.nl"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
