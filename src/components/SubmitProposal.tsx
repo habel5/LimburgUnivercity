@@ -50,7 +50,7 @@ export default function SubmitProposal() {
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges/${id}`,
         {
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
         }
       );
@@ -92,7 +92,7 @@ export default function SubmitProposal() {
           headers: {
             'Content-Type': 'application/json',
             'X-Session-Token': accessToken || '',
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
           body: JSON.stringify({
             challenge_id: id,

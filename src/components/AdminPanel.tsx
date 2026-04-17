@@ -106,12 +106,12 @@ export default function AdminPanel() {
       const [challengesResponse, proposalsResponse] = await Promise.all([
         fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`, {
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
         }),
         fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`, {
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
         }),
       ]);
@@ -191,7 +191,7 @@ export default function AdminPanel() {
         {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
             'X-Session-Token': accessToken || '',
           },
         }
@@ -229,7 +229,7 @@ export default function AdminPanel() {
         {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
             'X-Session-Token': accessToken || '',
           },
         }
@@ -290,7 +290,7 @@ export default function AdminPanel() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${publicAnonKey}`,
+            "apikey": publicAnonKey,
             "X-Session-Token": accessToken || "",
           },
           body: JSON.stringify({
@@ -343,33 +343,33 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+    <div className="vista-page min-h-[calc(100vh-149px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
-          className="mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
+          className="mb-6 gap-2 text-[#204448] hover:text-[#ec644a] hover:bg-[#fff1ec]"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar home
         </Button>
 
         <div className="space-y-6">
-          <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+          <Card className="vista-panel border rounded-[18px]">
             <CardHeader className="pb-6">
-              <CardTitle className="text-[26px] font-bold text-black flex items-center gap-2">
+              <CardTitle className="vista-heading text-[26px] font-bold text-[#204448] flex items-center gap-2 uppercase">
                 <Database className="w-6 h-6 text-[#ec644a]" />
                 Admin Paneel
               </CardTitle>
-              <CardDescription className="text-[18px] text-gray-700">
+              <CardDescription className="text-[18px] text-[#567073]">
                 Beheer cases, voorstellen en bekijk statistieken
               </CardDescription>
             </CardHeader>
           </Card>
 
           {loading ? (
-            <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
-              <CardContent className="py-8 text-center text-gray-600">
+            <Card className="vista-panel border rounded-[18px]">
+              <CardContent className="py-8 text-center text-[#567073]">
                 Laden...
               </CardContent>
             </Card>
@@ -377,59 +377,59 @@ export default function AdminPanel() {
             <>
               {/* Statistics */}
               {stats && (
-                <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+                <Card className="vista-panel border rounded-[18px]">
                   <CardHeader>
-                    <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
+                    <CardTitle className="vista-heading text-[22px] font-bold text-[#204448] flex items-center gap-2 uppercase">
                       <BarChart3 className="w-5 h-5 text-[#ec644a]" />
                       Statistieken
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                      <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2a2321]">{stats.totalChallenges}</div>
-                        <div className="text-sm text-gray-600">Totaal Cases</div>
+                      <div className="vista-soft-panel rounded-lg p-4">
+                        <div className="text-2xl font-bold text-[#204448]">{stats.totalChallenges}</div>
+                        <div className="text-sm text-[#567073]">Totaal Cases</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2a2321]">{stats.totalProposals}</div>
-                        <div className="text-sm text-gray-600">Totaal Voorstellen</div>
+                      <div className="vista-soft-panel rounded-lg p-4">
+                        <div className="text-2xl font-bold text-[#204448]">{stats.totalProposals}</div>
+                        <div className="text-sm text-[#567073]">Totaal Voorstellen</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4">
+                      <div className="vista-soft-panel rounded-lg p-4">
                         <div className="text-2xl font-bold text-[#ec644a]">
                           {stats.totalChallenges > 0 ? (stats.totalProposals / stats.totalChallenges).toFixed(1) : '0'}
                         </div>
-                        <div className="text-sm text-gray-600">Gem. Voorstellen/Case</div>
+                        <div className="text-sm text-[#567073]">Gem. Voorstellen/Case</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4">
-                        <div className="text-2xl font-bold text-[#2a2321]">
+                      <div className="vista-soft-panel rounded-lg p-4">
+                        <div className="text-2xl font-bold text-[#204448]">
                           {Object.keys(stats.challengesByMunicipality).length}
                         </div>
-                        <div className="text-sm text-gray-600">Actieve Gemeentes</div>
+                        <div className="text-sm text-[#567073]">Actieve Gemeentes</div>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* By Municipality */}
-                      <div className="bg-white rounded-lg p-4">
-                        <h4 className="font-semibold text-black mb-3">Per Gemeente</h4>
+                      <div className="vista-soft-panel rounded-lg p-4">
+                        <h4 className="font-semibold text-[#204448] mb-3">Per Gemeente</h4>
                         <div className="space-y-2">
                           {Object.entries(stats.challengesByMunicipality).map(([key, count]) => (
                             <div key={key} className="flex justify-between items-center">
-                              <span className="text-sm text-gray-700">{municipalityLabels[key] || key}</span>
-                              <span className="font-semibold text-[#2a2321]">{count}</span>
+                              <span className="text-sm text-[#567073]">{municipalityLabels[key] || key}</span>
+                              <span className="font-semibold text-[#204448]">{count}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       {/* By Category */}
-                      <div className="bg-white rounded-lg p-4">
-                        <h4 className="font-semibold text-black mb-3">Per Categorie</h4>
+                      <div className="vista-soft-panel rounded-lg p-4">
+                        <h4 className="font-semibold text-[#204448] mb-3">Per Categorie</h4>
                         <div className="space-y-2">
                           {Object.entries(stats.challengesByCategory).map(([key, count]) => (
                             <div key={key} className="flex justify-between items-center">
-                              <span className="text-sm text-gray-700">{categoryLabels[key] || key}</span>
-                              <span className="font-semibold text-[#2a2321]">{count}</span>
+                              <span className="text-sm text-[#567073]">{categoryLabels[key] || key}</span>
+                              <span className="font-semibold text-[#204448]">{count}</span>
                             </div>
                           ))}
                         </div>
@@ -440,22 +440,22 @@ export default function AdminPanel() {
               )}
 
               {/* Challenges List */}
-              <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+              <Card className="vista-panel border rounded-[18px]">
                 <CardHeader>
-                  <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
+                  <CardTitle className="vista-heading text-[22px] font-bold text-[#204448] flex items-center gap-2 uppercase">
                     <FileText className="w-5 h-5 text-[#ec644a]" />
                     Cases ({challenges.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {challenges.length === 0 ? (
-                    <p className="text-gray-600 text-center py-4">Geen cases gevonden</p>
+                    <p className="text-[#567073] text-center py-4">Geen cases gevonden</p>
                   ) : (
                     <div className="space-y-2">
                       {challenges.map((challenge) => (
                         <div
                           key={challenge.id}
-                          className="bg-white rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow"
+                          className="vista-clickable bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/10 rounded-lg p-4 flex items-center justify-between hover:shadow-md"
                         >
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
@@ -463,12 +463,12 @@ export default function AdminPanel() {
                               <span className="text-xs bg-[#ec644a] text-white px-2 py-0.5 rounded">
                                 {municipalityLabels[challenge.municipality as keyof typeof municipalityLabels] || challenge.municipality}
                               </span>
-                              <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
+                              <span className="text-xs bg-[#eef7f6] text-[#0b6168] px-2 py-0.5 rounded">
                                 {categoryLabels[challenge.category]}
                               </span>
                             </div>
-                            <h4 className="font-semibold text-black truncate mb-1">{challenge.title}</h4>
-                            <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <h4 className="font-semibold text-[#204448] truncate mb-1">{challenge.title}</h4>
+                            <div className="flex items-center gap-4 text-sm text-[#567073]">
                               <span>{challenge.proposal_count || 0} voorstellen</span>
                               <span>{formatDate(challenge.created_at)}</span>
                             </div>
@@ -478,7 +478,7 @@ export default function AdminPanel() {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleStartEdit(challenge)}
-                              className="text-[#2a2321] hover:text-[#ec644a] hover:bg-orange-50"
+                              className="text-[#204448] hover:text-[#ec644a] hover:bg-orange-50"
                             >
                               <Pencil className="w-4 h-4" />
                             </Button>
@@ -500,32 +500,32 @@ export default function AdminPanel() {
               </Card>
 
               {/* Proposals List */}
-              <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+              <Card className="vista-panel border rounded-[18px]">
                 <CardHeader>
-                  <CardTitle className="text-[22px] font-bold text-black flex items-center gap-2">
+                  <CardTitle className="vista-heading text-[22px] font-bold text-[#204448] flex items-center gap-2 uppercase">
                     <FileText className="w-5 h-5 text-[#ec644a]" />
                     Voorstellen ({proposals.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {proposals.length === 0 ? (
-                    <p className="text-gray-600 text-center py-4">Geen voorstellen gevonden</p>
+                    <p className="text-[#567073] text-center py-4">Geen voorstellen gevonden</p>
                   ) : (
                     <div className="space-y-2">
                       {proposals.map((proposal) => (
                         <div
                           key={proposal.id}
-                          className="bg-white rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow"
+                          className="vista-clickable bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/10 rounded-lg p-4 flex items-center justify-between hover:shadow-md"
                         >
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-mono text-sm text-gray-500">{proposal.id}</span>
-                              <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
+                              <span className="text-xs bg-[#eef7f6] text-[#0b6168] px-2 py-0.5 rounded">
                                 voor {proposal.challenge_id}
                               </span>
                             </div>
-                            <h4 className="font-semibold text-black truncate mb-1">{proposal.title}</h4>
-                            <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <h4 className="font-semibold text-[#204448] truncate mb-1">{proposal.title}</h4>
+                            <div className="flex items-center gap-4 text-sm text-[#567073]">
                               <span>{proposal.author}</span>
                               <span>{proposal.organization}</span>
                               <span>{formatDate(proposal.created_at)}</span>
@@ -552,10 +552,10 @@ export default function AdminPanel() {
       </div>
 
       <Dialog open={editingChallenge !== null} onOpenChange={(open) => !open && setEditingChallenge(null)}>
-        <DialogContent className="bg-[#f2f2f2] border-0 max-w-2xl">
+        <DialogContent className="bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/12 max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-black">Case bewerken</DialogTitle>
-            <DialogDescription className="text-gray-700">
+            <DialogTitle className="vista-heading text-[#204448] uppercase">Case bewerken</DialogTitle>
+            <DialogDescription className="text-[#567073]">
               Pas de gegevens van deze case aan en sla de wijzigingen op.
             </DialogDescription>
           </DialogHeader>

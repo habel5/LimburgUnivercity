@@ -8,11 +8,16 @@
   --vista-aqua: #0b6168;
   --vista-aqua-dark: #084f56;
   --vista-aqua-soft: #6eaab0;
-  --vista-surface: #2a2321;
-  --vista-surface-dark: #1f1a19;
-  --vista-surface-deep: #171312;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
+  --vista-paper: #fffaf5;
+  --vista-paper-soft: #f8f0e8;
+  --vista-panel: #ffffff;
+  --vista-panel-tint: #eef7f6;
+  --vista-surface: #204448;
+  --vista-surface-dark: #17373a;
+  --vista-surface-deep: #12292c;
+  --vista-ink: #243537;
+  --background: #fffaf5;
+  --foreground: #243537;
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -133,10 +138,39 @@
     @apply border-border outline-ring/50;
   }
 
+  button,
+  [role="button"],
+  a {
+    cursor: pointer;
+  }
+
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family:
+      "Aptos",
+      "Segoe UI",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    background:
+      radial-gradient(circle at top right, rgba(11, 97, 104, 0.12), transparent 24%),
+      linear-gradient(180deg, #fffdfa 0%, #f8f0e8 100%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  button,
+  .vista-heading {
+    font-family:
+      "Aptos",
+      "Segoe UI",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
   }
 }
 
@@ -191,4 +225,53 @@
 
 html {
   font-size: var(--font-size);
+}
+
+@layer components {
+  .vista-clickable {
+    @apply cursor-pointer transition-[transform,box-shadow,background-color,color,border-color,opacity] duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99];
+  }
+
+  .vista-page {
+    background:
+      radial-gradient(circle at top right, rgba(11, 97, 104, 0.14), transparent 22%),
+      radial-gradient(circle at top left, rgba(236, 100, 74, 0.12), transparent 26%),
+      linear-gradient(180deg, #fffdfa 0%, #f8f0e8 58%, #fff8f1 100%);
+  }
+
+  .vista-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold;
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(11, 97, 104, 0.14);
+    color: var(--vista-aqua);
+    box-shadow: 0 12px 30px rgba(32, 68, 72, 0.08);
+  }
+
+  .vista-panel {
+    @apply rounded-[28px] border;
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(32, 68, 72, 0.1);
+    box-shadow: 0 24px 60px rgba(36, 53, 55, 0.08);
+  }
+
+  .vista-soft-panel {
+    @apply rounded-[24px] border;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 240, 232, 0.96));
+    border-color: rgba(236, 100, 74, 0.12);
+    box-shadow: 0 20px 45px rgba(36, 53, 55, 0.08);
+  }
+
+  .vista-aqua-panel {
+    @apply rounded-[24px] border text-white;
+    background: linear-gradient(135deg, #0b6168 0%, #13484d 100%);
+    border-color: rgba(11, 97, 104, 0.28);
+    box-shadow: 0 24px 50px rgba(11, 97, 104, 0.2);
+  }
+
+  .vista-stat-card {
+    @apply rounded-[24px] border p-8 text-center transition-all duration-300;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(11, 97, 104, 0.1);
+    box-shadow: 0 18px 36px rgba(36, 53, 55, 0.07);
+  }
 }

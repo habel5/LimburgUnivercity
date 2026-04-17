@@ -70,7 +70,7 @@ export default function AddListing() {
           headers: {
             'Content-Type': 'application/json',
             'X-Session-Token': accessToken || '',
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
           body: JSON.stringify({
             title: formData.title,

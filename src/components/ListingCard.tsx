@@ -14,15 +14,15 @@ export function ListingCard({ listing }: ListingCardProps) {
 
   return (
     <Link to={`/listing/${listing.id}`} className="group">
-      <Card className="h-full hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+      <Card className="vista-clickable h-full hover:shadow-2xl hover:-translate-y-1 bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/10 rounded-[18px] shadow-[0_18px_36px_rgba(36,53,55,0.08)]">
         <CardContent className="p-5 md:p-6 flex flex-col h-full">
           {/* Title */}
-          <h3 className="font-bold text-[22px] md:text-[26px] text-black leading-tight mb-3 line-clamp-2 group-hover:text-[#2a2321] transition-colors">
+          <h3 className="vista-heading font-bold uppercase text-[22px] md:text-[26px] text-[#204448] leading-tight mb-3 line-clamp-2 group-hover:text-[#0b6168] transition-colors">
             {listing.title}
           </h3>
           
           {/* Organization */}
-          <p className="text-black/80 text-[18px] md:text-[20px] mb-4 line-clamp-1">
+          <p className="text-[#567073] text-[18px] md:text-[20px] mb-4 line-clamp-1">
             {listing.organization || listing.author}
           </p>
 
@@ -35,7 +35,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           <div className="flex-1"></div>
 
           {/* Challenges count */}
-          <div className="flex items-center gap-2 text-black/70 text-[17px] md:text-[19px] mb-4">
+          <div className="flex items-center gap-2 text-[#567073] text-[17px] md:text-[19px] mb-4">
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 20 20">
               <path d={svgPaths.p4906540} stroke="#B2B3B4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
             </svg>
@@ -46,7 +46,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           <div className="w-full h-[1px] bg-[#B2B3B4] mb-4" />
 
           {/* Date */}
-          <div className="text-black/60 text-[16px] md:text-[18px]">
+          <div className="text-[#7a9093] text-[16px] md:text-[18px]">
             Geplaatst op {formatDate(listing.created_at)}
           </div>
         </CardContent>

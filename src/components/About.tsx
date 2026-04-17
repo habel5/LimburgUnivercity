@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import imgKennisFestivalBannerEdited1 from "../assets/Banner.png";
+import imgKennisFestivalBannerEdited1 from "../assets/vista-flyer.jpeg";
 import imgVistaLogo from "figma:asset/29444d676ea0be3981c0e5c3036ea8817d3926c9.png";
 import imgZuydLogo from "figma:asset/203acb71bc15783d4542299713c310ad058b71a2.png";
 import { Sparkles, Target, Users, Lightbulb, Award, Heart } from "lucide-react";
@@ -87,7 +87,7 @@ export default function About() {
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/stats`,
         {
           headers: {
-            Authorization: `Bearer ${publicAnonKey}`,
+            apikey: publicAnonKey,
           },
         },
       );
@@ -110,7 +110,7 @@ export default function About() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#2a2321] via-[#2a2321] to-[#1a1514] min-h-screen">
+    <div className="vista-page min-h-screen">
       {/* Hero Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-28 relative overflow-hidden">
         {/* Decorative elements */}
@@ -120,7 +120,7 @@ export default function About() {
         <div className="relative z-10">
           {/* Badge */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-[#0b6168]/10 border border-[#0b6168]/20 rounded-full px-4 py-2">
+            <div className="vista-kicker">
               <Sparkles className="w-4 h-4 text-[#0b6168]" />
               <span className="text-[#0b6168] text-[14px] font-medium">Limburg University × Gemeenten</span>
             </div>
@@ -129,11 +129,11 @@ export default function About() {
           {/* Desktop & Tablet View */}
           <div className="hidden md:flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="lg:w-1/2 space-y-8">
-              <h1 className="text-white font-bold text-[48px] lg:text-[64px] leading-[1.1]">
-                Over <span className="bg-gradient-to-r from-[#ec644a] to-[#0b6168] bg-clip-text text-transparent">Ons Platform</span>
+              <h1 className="vista-heading text-[#204448] font-bold text-[48px] lg:text-[64px] leading-[1.02] uppercase">
+                Over <span className="text-[#ec644a]">Ons Platform</span>
               </h1>
 
-              <div className="text-gray-300 text-[18px] lg:text-[20px] leading-relaxed space-y-6">
+              <div className="text-[#486467] text-[18px] lg:text-[20px] leading-relaxed space-y-6">
                 <p className="opacity-90">
                   Het Limburg University Knowledge Festival is een
                   uniek platform waar docenten en lokale gemeenten
@@ -157,7 +157,7 @@ export default function About() {
                 </p>
                 
                 {/* Motto */}
-                <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-6 border border-[#ec644a]/20 mt-8">
+                <div className="vista-soft-panel p-6 mt-8">
                   <div className="flex items-start gap-4">
                     <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Lightbulb className="w-6 h-6 text-white" />
@@ -166,7 +166,7 @@ export default function About() {
                       <p className="text-[#ec644a] font-bold text-[20px] lg:text-[24px] mb-2">
                         "The City Is Our Campus"
                       </p>
-                      <p className="text-gray-300 text-[16px] lg:text-[18px] opacity-80">
+                      <p className="text-[#567073] text-[16px] lg:text-[18px]">
                         We leren niet alleen in collegebanken, maar ook in de
                         straten, parken en wijken van onze steden. Elke case is een
                         kans om te leren, te innoveren en impact te maken.
@@ -198,11 +198,11 @@ export default function About() {
               />
             </div>
 
-            <h1 className="text-white font-bold text-[32px] text-center">
-              Over <span className="bg-gradient-to-r from-[#ec644a] to-[#0b6168] bg-clip-text text-transparent">Ons Platform</span>
+            <h1 className="vista-heading text-[#204448] font-bold text-[32px] text-center uppercase">
+              Over <span className="text-[#ec644a]">Ons Platform</span>
             </h1>
 
-            <div className="max-w-[320px] text-gray-300 text-[16px] text-center leading-relaxed space-y-4">
+            <div className="max-w-[320px] text-[#486467] text-[16px] text-center leading-relaxed space-y-4">
               <p className="opacity-90">
                 Het Limburg University Knowledge Festival is een
                 uniek platform waar docenten en lokale gemeenten
@@ -215,11 +215,11 @@ export default function About() {
                 kennis te combineren met praktijkervaring.
               </p>
               
-              <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-xl p-4 border border-[#ec644a]/20 mt-6">
+              <div className="vista-soft-panel rounded-xl p-4 mt-6">
                 <p className="text-[#ec644a] font-bold text-[18px] mb-2">
                   "The City Is Our Campus"
                 </p>
-                <p className="text-gray-300 text-[14px] opacity-80">
+                <p className="text-[#567073] text-[14px]">
                   Elke case is een kans om te leren en impact te maken.
                 </p>
               </div>
@@ -229,17 +229,17 @@ export default function About() {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-gradient-to-b from-[#1f1a19] via-[#181312] to-[#1f1a19] py-16 md:py-20 relative overflow-hidden">
+      <div className="py-16 md:py-20 relative overflow-hidden">
         {/* Decorative gradient circles */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-white font-bold text-[32px] md:text-[42px] mb-3">
+            <h2 className="vista-heading text-[#204448] font-bold text-[32px] md:text-[42px] mb-3 uppercase">
               Platform in Cijfers
             </h2>
-            <p className="text-gray-300 text-[16px] md:text-[18px] opacity-80">
+            <p className="text-[#567073] text-[16px] md:text-[18px]">
               Real-time statistieken van ons groeiende platform
             </p>
           </div>
@@ -247,24 +247,24 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <Link 
               to="/cases" 
-              className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 cursor-pointer"
+              className="vista-stat-card vista-clickable hover:-translate-y-1 hover:scale-[1.02]"
             >
               <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedChallenges}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Actieve Cases</div>
+              <div className="text-[#243537] text-[18px] md:text-[20px] font-medium">Actieve Cases</div>
             </Link>
-            <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
+            <div className="vista-stat-card hover:-translate-y-1 hover:scale-[1.02]">
               <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedProposals}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Ingediende Challenges</div>
+              <div className="text-[#243537] text-[18px] md:text-[20px] font-medium">Ingediende Challenges</div>
             </div>
-            <div className="text-center transition-all duration-500 hover:scale-105 bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10">
+            <div className="vista-stat-card hover:-translate-y-1 hover:scale-[1.02]">
               <div className="text-[#0b6168] text-[56px] md:text-[72px] font-bold mb-2 bg-gradient-to-br from-[#0b6168] to-[#6eaab0] bg-clip-text text-transparent">
                 {animatedMunicipalities}
               </div>
-              <div className="text-white text-[18px] md:text-[20px] opacity-90 font-medium">Deelnemende Gemeenten</div>
+              <div className="text-[#243537] text-[18px] md:text-[20px] font-medium">Deelnemende Gemeenten</div>
             </div>
           </div>
         </div>
@@ -273,16 +273,16 @@ export default function About() {
       {/* Vision & Mission Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-24">
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-white font-bold text-[36px] md:text-[48px] mb-4">
+          <h2 className="vista-heading text-[#204448] font-bold text-[36px] md:text-[48px] mb-4 uppercase">
             Onze Visie & Missie
           </h2>
-          <p className="text-gray-300 text-[18px] md:text-[20px] opacity-80 max-w-2xl mx-auto">
+          <p className="text-[#567073] text-[18px] md:text-[20px] max-w-2xl mx-auto">
             Waar we voor staan en wat we willen bereiken
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#ec644a]/20 hover:scale-105 transition-all duration-300 group">
+          <div className="vista-soft-panel p-8 md:p-10 hover:scale-[1.02] transition-all duration-300 group">
             <div className="flex items-start gap-4 mb-6">
               <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
                 <Target className="w-8 h-8 text-white" />
@@ -291,7 +291,7 @@ export default function About() {
                 Onze Visie
               </h3>
             </div>
-            <p className="text-gray-300 text-[17px] md:text-[19px] leading-relaxed opacity-90">
+            <p className="text-[#567073] text-[17px] md:text-[19px] leading-relaxed">
               Een Limburg waar universiteiten en gemeenten
               structureel samenwerken aan duurzame oplossingen
               voor maatschappelijke vraagstukken. Waar studenten
@@ -300,7 +300,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#1f1a19] to-[#171312] rounded-2xl p-8 md:p-10 shadow-lg border border-[#ec644a]/20 hover:scale-105 transition-all duration-300 group">
+          <div className="vista-soft-panel p-8 md:p-10 hover:scale-[1.02] transition-all duration-300 group">
             <div className="flex items-start gap-4 mb-6">
               <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300">
                 <Heart className="w-8 h-8 text-white" />
@@ -309,7 +309,7 @@ export default function About() {
                 Onze Missie
               </h3>
             </div>
-            <p className="text-gray-300 text-[17px] md:text-[19px] leading-relaxed opacity-90">
+            <p className="text-[#567073] text-[17px] md:text-[19px] leading-relaxed">
               Het verbinden van academische expertise met
               gemeentelijke cases door een toegankelijk
               platform te bieden waar kennis, creativiteit en
@@ -320,54 +320,54 @@ export default function About() {
       </div>
 
       {/* Core Values Section */}
-      <div className="bg-gradient-to-b from-[#1f1a19] to-[#171312] py-16 md:py-24 relative overflow-hidden">
+      <div className="py-16 md:py-24 relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#0b6168] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#ec644a] opacity-10 rounded-full blur-3xl"></div>
         
         <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-white font-bold text-[36px] md:text-[48px] mb-4">
+            <h2 className="vista-heading text-[#204448] font-bold text-[36px] md:text-[48px] mb-4 uppercase">
               Onze Kernwaarden
             </h2>
-            <p className="text-gray-300 text-[18px] md:text-[20px] opacity-80 max-w-2xl mx-auto">
+            <p className="text-[#567073] text-[18px] md:text-[20px] max-w-2xl mx-auto">
               De principes die ons platform drijven
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-5xl mx-auto">
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+            <div className="text-center group vista-soft-panel p-6 md:p-8 hover:border-[#ec644a]/30 transition-all duration-300">
               <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Users className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
+              <h3 className="text-[#204448] font-bold text-[22px] md:text-[24px] mb-3 uppercase">
                 Samenwerking
               </h3>
-              <p className="text-gray-300 text-[15px] md:text-[17px] opacity-80 leading-relaxed">
+              <p className="text-[#567073] text-[15px] md:text-[17px] leading-relaxed">
                 We geloven in de kracht van samenwerking tussen gemeenten, universiteiten en docenten
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+            <div className="text-center group vista-soft-panel p-6 md:p-8 hover:border-[#ec644a]/30 transition-all duration-300">
               <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Lightbulb className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
+              <h3 className="text-[#204448] font-bold text-[22px] md:text-[24px] mb-3 uppercase">
                 Innovatie
               </h3>
-              <p className="text-gray-300 text-[15px] md:text-[17px] opacity-80 leading-relaxed">
+              <p className="text-[#567073] text-[15px] md:text-[17px] leading-relaxed">
                 Creatieve en innovatieve oplossingen voor complexe maatschappelijke cases
               </p>
             </div>
 
-            <div className="text-center group bg-white/5 rounded-xl p-6 md:p-8 backdrop-blur-sm border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300">
+            <div className="text-center group vista-soft-panel p-6 md:p-8 hover:border-[#ec644a]/30 transition-all duration-300">
               <div className="bg-gradient-to-br from-[#ec644a] to-[#f56565] w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 mx-auto mb-4">
                 <Award className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-white font-bold text-[22px] md:text-[24px] mb-3">
+              <h3 className="text-[#204448] font-bold text-[22px] md:text-[24px] mb-3 uppercase">
                 Impact
               </h3>
-              <p className="text-gray-300 text-[15px] md:text-[17px] opacity-80 leading-relaxed">
+              <p className="text-[#567073] text-[15px] md:text-[17px] leading-relaxed">
                 Concrete, meetbare impact op de leefomgeving in Limburg
               </p>
             </div>
@@ -378,10 +378,10 @@ export default function About() {
       {/* Partners Section */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-24">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-white font-bold text-[36px] md:text-[48px] mb-4">
+          <h2 className="vista-heading text-[#204448] font-bold text-[36px] md:text-[48px] mb-4 uppercase">
             In Samenwerking Met
           </h2>
-          <p className="text-gray-300 text-[18px] md:text-[20px] opacity-80">
+          <p className="text-[#567073] text-[18px] md:text-[20px]">
             Onze partners maken dit platform mogelijk
           </p>
         </div>
@@ -391,7 +391,7 @@ export default function About() {
             href="https://vistacollege.nl/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#ec644a]/30 transition-all duration-300 hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
+            className="vista-soft-panel vista-clickable rounded-2xl p-6 hover:border-[#ec644a]/30 hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
           >
             <img
               src={imgVistaLogo}
@@ -403,7 +403,7 @@ export default function About() {
             href="https://www.zuyd.nl/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
+            className="vista-clickable bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 w-[240px] h-[140px] flex items-center justify-center"
           >
             <img
               src={imgZuydLogo}

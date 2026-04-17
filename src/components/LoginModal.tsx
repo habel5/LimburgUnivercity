@@ -48,8 +48,8 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+    <div className="fixed inset-0 bg-[#204448]/25 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <Card className="w-full max-w-md bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/12 rounded-[18px] shadow-[0_24px_60px_rgba(36,53,55,0.12)]">
         <CardHeader className="relative">
           <button
             onClick={onClose}
@@ -57,8 +57,8 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
           >
             <X className="w-5 h-5" />
           </button>
-          <CardTitle className="text-[26px] font-bold text-black">Inloggen</CardTitle>
-          <CardDescription className="text-[18px] text-gray-700">
+          <CardTitle className="vista-heading text-[26px] font-bold uppercase text-[#204448]">Inloggen</CardTitle>
+          <CardDescription className="text-[18px] text-[#567073]">
             Log in als admin, gemeente of onderwijs
           </CardDescription>
         </CardHeader>

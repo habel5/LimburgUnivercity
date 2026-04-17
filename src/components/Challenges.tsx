@@ -54,7 +54,7 @@ export default function Challenges() {
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?${params}`,
         {
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
         }
       );
@@ -90,28 +90,28 @@ export default function Challenges() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#2a2321] via-[#1f1a19] to-[#171312] min-h-screen relative overflow-hidden">
+    <div className="vista-page min-h-screen relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0b6168] opacity-[0.12] rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0b6168] opacity-[0.08] rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0b6168] opacity-[0.1] rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#ec644a] opacity-[0.08] rounded-full blur-3xl"></div>
 
       {/* Hero Section with glassmorphism */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-20 relative z-10">
         {/* Title Section with modern styling */}
         <div className="mb-10 md:mb-16">
           <div className="inline-block mb-4">
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+            <div className="vista-kicker">
               <Sparkles className="w-5 h-5 text-[#0b6168]" />
               <span className="text-[#0b6168] text-sm font-medium">Ontdek alle cases</span>
             </div>
           </div>
-          <h1 className="text-white font-bold text-[40px] sm:text-[50px] md:text-[60px] leading-[1.1] mb-6">
+          <h1 className="vista-heading text-[#204448] font-bold text-[40px] sm:text-[50px] md:text-[60px] leading-[1.02] mb-6 uppercase">
             Cases van <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ec644a] to-[#0b6168]">
               Limburgse Gemeenten
             </span>
           </h1>
-          <p className="text-white/80 text-[18px] sm:text-[20px] md:text-[22px] max-w-2xl leading-relaxed">
+          <p className="text-[#567073] text-[18px] sm:text-[20px] md:text-[22px] max-w-2xl leading-relaxed">
             Zoek en filter cases van gemeenten in Limburg en draag bij aan de toekomst van jouw regio
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function Challenges() {
         </div>
 
         {/* Search and Filters Card with glassmorphism */}
-        <div className="bg-white/10 backdrop-blur-md rounded-[20px] border border-white/20 p-6 md:p-8 mb-12 shadow-xl">
+        <div className="vista-panel p-6 md:p-8 mb-12">
           {/* Search Bar */}
           <div className="relative mb-6">
             <Input
@@ -137,9 +137,9 @@ export default function Challenges() {
               placeholder="Zoek cases..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[50px] md:h-[56px] bg-white/90 backdrop-blur-sm rounded-[12px] border-white/30 pr-[70px] text-base md:text-lg shadow-sm focus:bg-white transition-colors"
+              className="w-full h-[50px] md:h-[56px] bg-white rounded-[12px] border-[#0b6168]/15 pr-[70px] text-base md:text-lg shadow-sm focus:bg-white transition-colors"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 h-[42px] md:h-[48px] w-[50px] md:w-[56px] bg-[#1f1a19] hover:bg-[#2a2321] rounded-[10px] flex items-center justify-center transition-colors">
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 h-[42px] md:h-[48px] w-[50px] md:w-[56px] bg-[#0b6168] hover:bg-[#084f56] rounded-[10px] flex items-center justify-center transition-colors">
               <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 18 18">
                 <path d={svgPaths.pbc21670} fill="white" />
               </svg>
@@ -149,7 +149,7 @@ export default function Challenges() {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
             <Select value={selectedMunicipality} onValueChange={(value) => setSelectedMunicipality(value as any)}>
-              <SelectTrigger className="w-full sm:w-64 bg-white/90 backdrop-blur-sm border-white/30 h-[50px] rounded-[12px] shadow-sm hover:bg-white transition-colors">
+              <SelectTrigger className="w-full sm:w-64 bg-white border-[#0b6168]/15 h-[50px] rounded-[12px] shadow-sm hover:bg-white transition-colors">
                 <SelectValue placeholder="Gemeente" />
               </SelectTrigger>
               <SelectContent>
@@ -163,7 +163,7 @@ export default function Challenges() {
             </Select>
 
             <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as any)}>
-              <SelectTrigger className="w-full sm:w-64 bg-white/90 backdrop-blur-sm border-white/30 h-[50px] rounded-[12px] shadow-sm hover:bg-white transition-colors">
+              <SelectTrigger className="w-full sm:w-64 bg-white border-[#0b6168]/15 h-[50px] rounded-[12px] shadow-sm hover:bg-white transition-colors">
                 <SelectValue placeholder="Categorie" />
               </SelectTrigger>
               <SelectContent>
@@ -178,8 +178,8 @@ export default function Challenges() {
           </div>
 
           {/* Results Count */}
-          <div className="mt-6 pt-6 border-t border-white/20">
-            <p className="text-white/90 text-sm md:text-base flex items-center gap-2">
+          <div className="mt-6 pt-6 border-t border-[#0b6168]/10">
+            <p className="text-[#325457] text-sm md:text-base flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[#0b6168]" />
               {loading ? 'Laden...' : `${listings.length} ${listings.length === 1 ? 'case' : 'cases'} gevonden`}
             </p>
@@ -189,17 +189,17 @@ export default function Challenges() {
         {/* Listings Grid */}
         {loading ? (
           <div className="text-center py-16 md:py-24">
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-4 rounded-full">
+            <div className="inline-flex items-center gap-3 bg-white px-6 py-4 rounded-full shadow-[0_16px_34px_rgba(36,53,55,0.08)]">
               <div className="w-5 h-5 border-2 border-[#0b6168] border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-white text-lg md:text-xl">Laden...</p>
+              <p className="text-[#204448] text-lg md:text-xl">Laden...</p>
             </div>
           </div>
         ) : listings.length === 0 ? (
           <div className="text-center py-16 md:py-24">
-            <div className="bg-white/10 backdrop-blur-sm rounded-[20px] border border-white/20 p-12 max-w-md mx-auto">
+            <div className="vista-panel p-12 max-w-md mx-auto">
               <Lightbulb className="w-16 h-16 text-[#0b6168] mx-auto mb-4 opacity-60" />
-              <p className="text-white text-lg md:text-xl">Geen cases gevonden</p>
-              <p className="text-white/60 text-sm mt-2">Probeer een andere zoekopdracht of filter</p>
+              <p className="text-[#204448] text-lg md:text-xl">Geen cases gevonden</p>
+              <p className="text-[#6b8487] text-sm mt-2">Probeer een andere zoekopdracht of filter</p>
             </div>
           </div>
         ) : (

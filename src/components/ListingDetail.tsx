@@ -32,7 +32,7 @@ export default function ListingDetail() {
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges/${id}`,
         {
           headers: {
-            'Authorization': `Bearer ${publicAnonKey}`,
+            'apikey': publicAnonKey,
           },
         }
       );
