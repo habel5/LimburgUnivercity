@@ -13,7 +13,7 @@ Dit document bundelt de belangrijkste opleverpunten van het project voor demonst
 ## Opgeleverde onderdelen
 
 ### 1. Project opgeschoond voor lokaal ontwikkelen
-- Figma AI export opgeschoond naar een bruikbare codebase
+- Projectstructuur opgeschoond naar een bruikbare codebase
 - Rootconfiguratie ingericht voor Vite en TypeScript
 - Project lokaal buildbaar en typecheckbaar gemaakt
 
@@ -57,7 +57,7 @@ Dit document bundelt de belangrijkste opleverpunten van het project voor demonst
 
 De voortgang is zichtbaar in afzonderlijke commits, waaronder:
 
-- opschonen van de Figma-export
+- opschonen van de projectstructuur
 - toevoegen van de Supabase backend en mailflow
 - toevoegen van projectdocumentatie en bewijsdocumenten
 

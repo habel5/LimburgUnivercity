@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { categories, municipalities, Category, Municipality } from "../lib/supabase";
 import { useAuth } from "../lib/auth";
 import { projectId, publicAnonKey } from '../config/env';
+import { invalidate } from '../lib/api';
 
 export default function AddListing() {
   const navigate = useNavigate();
@@ -59,10 +60,6 @@ export default function AddListing() {
     try {
       setSubmitting(true);
       
-      console.log('=== FRONTEND: Creating challenge ===');
-      console.log('Access token (first 20 chars):', accessToken?.substring(0, 20));
-      console.log('User:', user?.email);
-      
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`,
         {
@@ -84,18 +81,16 @@ export default function AddListing() {
         }
       );
 
-      console.log('Response status:', response.status);
-      
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Failed to create challenge:', errorData);
         throw new Error(errorData.error || 'Failed to create challenge');
       }
 
-      const result = await response.json();
-      console.log('Challenge created successfully:', result);
+      await response.json();
       
       toast.success('Case succesvol geplaatst!');
+      invalidate('/challenges');
+      invalidate('/stats');
       setTimeout(() => {
         navigate('/cases');
       }, 1000);
@@ -112,12 +107,12 @@ export default function AddListing() {
   }
 
   return (
-    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+    <div className="vista-page min-h-[calc(100vh-149px)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/cases')}
-          className="mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
+          className="mb-6 gap-2 text-[#204448] hover:text-[#ec644a] hover:bg-[#0b6168]/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar overzicht

@@ -26,12 +26,6 @@ export const useAuth = create<AuthState>((set) => ({
   accessToken: null,
   login: async (email: string, password: string) => {
     try {
-      console.log('=== LOGIN ATTEMPT (FRONTEND) ===');
-      console.log('Email:', email);
-      console.log('Password length:', password.length);
-      console.log('First char:', password[0]);
-      console.log('Last char:', password[password.length - 1]);
-      
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/login`,
         {
@@ -45,8 +39,6 @@ export const useAuth = create<AuthState>((set) => ({
       );
 
       const data = await response.json();
-      console.log('Server response:', data);
-      console.log('Response status:', response.status);
 
       if (!response.ok) {
         console.error('Login failed:', data);
