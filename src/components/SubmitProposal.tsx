@@ -35,10 +35,10 @@ export default function SubmitProposal() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      toast.error('Je moet inloggen om een challenge in te dienen');
+      toast.error('Je moet inloggen om een voorstel in te dienen');
       navigate(`/listing/${id}`);
     } else if (!canSubmitProposal) {
-      toast.error('Alleen onderwijs- en adminaccounts kunnen challenges indienen');
+      toast.error('Alleen onderwijs- en adminaccounts kunnen voorstellen indienen');
       navigate(`/listing/${id}`);
     }
   }, [isAuthenticated, canSubmitProposal, navigate, id]);
@@ -82,9 +82,6 @@ export default function SubmitProposal() {
     try {
       setSubmitting(true);
       
-      console.log('=== FRONTEND: Creating proposal ===');
-      console.log('Challenge ID:', id);
-      
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`,
         {
@@ -106,24 +103,20 @@ export default function SubmitProposal() {
         }
       );
 
-      console.log('Response status:', response.status);
-      
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Failed to create proposal:', errorData);
         throw new Error(errorData.error || 'Failed to create proposal');
       }
 
-      const result = await response.json();
-      console.log('Proposal created successfully:', result);
+      await response.json();
       
-      toast.success('Challenge succesvol ingediend!');
+      toast.success('Voorstel succesvol ingediend!');
       setTimeout(() => {
         navigate(`/listing/${id}`);
       }, 1000);
     } catch (error) {
       console.error('Error creating proposal:', error);
-      toast.error('Er is een fout opgetreden bij het indienen van de challenge');
+      toast.error('Er is een fout opgetreden bij het indienen van het voorstel');
     } finally {
       setSubmitting(false);
     }
@@ -131,9 +124,9 @@ export default function SubmitProposal() {
 
   if (loading) {
     return (
-      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+      <div className="vista-page min-h-[calc(100vh-149px)]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <p className="text-white text-lg">Laden...</p>
+          <p className="text-[#204448] text-lg">Laden...</p>
         </div>
       </div>
     );
@@ -144,12 +137,12 @@ export default function SubmitProposal() {
   }
 
   return (
-    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+    <div className="vista-page min-h-[calc(100vh-149px)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate(`/listing/${id}`)}
-          className="mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
+          className="mb-6 gap-2 text-[#204448] hover:text-[#ec644a] hover:bg-[#0b6168]/10"
         >
           <ArrowLeft className="w-4 h-4" />
           Terug naar case
@@ -157,9 +150,9 @@ export default function SubmitProposal() {
 
         <Card className="bg-[#f2f2f2] border-0 rounded-[10px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
           <CardHeader>
-            <CardTitle className="text-[26px] font-bold text-black">Challenge Indienen</CardTitle>
+            <CardTitle className="text-[26px] font-bold text-black">Voorstel Indienen</CardTitle>
             <CardDescription className="text-[18px] text-gray-700">
-              Dien je challenge in voor: <span className="font-semibold">{challenge.title}</span>
+              Dien je voorstel in voor: <span className="font-semibold">{challenge.title}</span>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -167,7 +160,7 @@ export default function SubmitProposal() {
               {/* Title */}
               <div className="space-y-2">
                 <Label htmlFor="title" className="text-black text-[18px]">
-                  Titel van je challenge *
+                  Titel van je voorstel *
                 </Label>
                 <Input
                   id="title"
@@ -248,7 +241,7 @@ export default function SubmitProposal() {
                 <Label htmlFor="description" className="text-black text-[18px]">Beschrijving (optioneel)</Label>
                 <Textarea
                   id="description"
-                  placeholder="Beschrijf je challenge verder als je extra toelichting wilt geven..."
+                  placeholder="Beschrijf je voorstel verder als je extra toelichting wilt geven..."
                   rows={8}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -263,7 +256,7 @@ export default function SubmitProposal() {
                   className="flex-1 bg-[#ec644a] hover:bg-[#f56565] text-white"
                   disabled={submitting}
                 >
-                  {submitting ? 'Bezig...' : 'Challenge Indienen'}
+                  {submitting ? 'Bezig...' : 'Voorstel Indienen'}
                 </Button>
                 <Button
                   type="button"

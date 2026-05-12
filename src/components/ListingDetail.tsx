@@ -7,7 +7,7 @@ import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Listing, Proposal, municipalityLabels } from "../lib/supabase";
 import { ProposalCard } from "./ProposalCard";
-import { projectId, publicAnonKey } from '../config/env';
+import { api } from '../lib/api';
 import { useAuth } from "../lib/auth";
 
 export default function ListingDetail() {
@@ -28,20 +28,7 @@ export default function ListingDetail() {
   const fetchChallengeDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges/${id}`,
-        {
-          headers: {
-            'apikey': publicAnonKey,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch challenge');
-      }
-
-      const data = await response.json();
+      const data = await api.challenge(id!);
       setListing(data.challenge);
       setProposals(data.proposals);
     } catch (error) {
@@ -53,9 +40,9 @@ export default function ListingDetail() {
 
   if (loading) {
     return (
-      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+      <div className="vista-page min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <p className="text-white text-lg">Case laden...</p>
+          <p className="text-[#204448] text-lg">Case laden...</p>
         </div>
       </div>
     );
@@ -63,9 +50,9 @@ export default function ListingDetail() {
 
   if (!listing) {
     return (
-      <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+      <div className="vista-page min-h-[calc(100vh-149px)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="text-2xl font-bold mb-4 text-white">Case niet gevonden</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#204448]">Case niet gevonden</h2>
           <Button onClick={() => navigate('/cases')} className="bg-[#ec644a] hover:bg-[#f56565] text-white">
             Terug naar overzicht
           </Button>
@@ -77,12 +64,12 @@ export default function ListingDetail() {
   const timeAgo = getTimeAgo(listing.created_at);
 
   return (
-    <div className="bg-[#2a2321] min-h-[calc(100vh-149px)]">
+    <div className="vista-page min-h-[calc(100vh-149px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/cases')}
-          className="mb-4 md:mb-6 gap-2 text-white hover:text-[#ec644a] hover:bg-white/10"
+          className="mb-4 md:mb-6 gap-2 text-[#204448] hover:text-[#ec644a] hover:bg-[#0b6168]/10"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="hidden sm:inline">Terug naar overzicht</span>
@@ -110,7 +97,7 @@ export default function ListingDetail() {
 
                 <div className="flex items-center gap-2 text-[#ec644a] font-bold text-xl sm:text-2xl mb-4 md:mb-6">
                   <Tag className="w-5 h-5 sm:w-6 sm:h-6" />
-                  {proposals.length} challenges ontvangen
+                  {proposals.length} voorstellen ontvangen
                 </div>
 
                 <Separator className="my-4 md:my-6 bg-[#B2B3B4]" />
@@ -135,8 +122,8 @@ export default function ListingDetail() {
             <div>
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                 <Lightbulb className="w-6 h-6 md:w-7 md:h-7 text-[#ec644a]" />
-                <h2 className="text-white font-bold text-[22px] sm:text-[24px] md:text-[28px]">
-                  Challenges ({proposals.length})
+                <h2 className="text-[#204448] font-bold text-[22px] sm:text-[24px] md:text-[28px]">
+                  Voorstellen ({proposals.length})
                 </h2>
               </div>
 
@@ -152,10 +139,10 @@ export default function ListingDetail() {
                     <CardContent className="p-6 sm:p-8 text-center">
                       <Lightbulb className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3 md:mb-4" />
                       <p className="text-gray-600 text-base sm:text-lg mb-2">
-                        Nog geen challenges ingediend
+                        Nog geen voorstellen ingediend
                       </p>
                       <p className="text-gray-500 text-xs sm:text-sm">
-                        Wees de eerste om een challenge in te dienen!
+                        Wees de eerste om een voorstel in te dienen!
                       </p>
                     </CardContent>
                   </Card>
@@ -165,10 +152,10 @@ export default function ListingDetail() {
                   <CardContent className="p-6 sm:p-8 text-center">
                     <Lightbulb className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3 md:mb-4" />
                     <p className="text-gray-600 text-base sm:text-lg mb-2">
-                      Challenges zijn alleen zichtbaar voor beheerders
+                      Voorstellen zijn alleen zichtbaar voor beheerders
                     </p>
                     <p className="text-gray-500 text-xs sm:text-sm">
-                      Log in als admin om de challenges te bekijken
+                      Log in als admin om de voorstellen te bekijken
                     </p>
                   </CardContent>
                 </Card>
@@ -219,16 +206,16 @@ export default function ListingDetail() {
                       onClick={() => navigate(`/listing/${id}/submit-proposal`)}
                     >
                       <Mail className="w-4 h-4" />
-                      Dien een challenge in
+                      Dien een voorstel in
                     </Button>
 
                     <p className="text-[10px] sm:text-xs text-gray-600 mt-3 md:mt-4 text-center">
-                      Deel je ideeën en challenges voor deze case
+                      Deel je ideeën en voorstellen voor deze case
                     </p>
                   </>
                 ) : (
                   <p className="text-[11px] sm:text-xs text-gray-600 mt-1 text-center">
-                    Log in met een onderwijsaccount om een challenge in te dienen
+                    Log in met een onderwijsaccount om een voorstel in te dienen
                   </p>
                 )}
               </CardContent>

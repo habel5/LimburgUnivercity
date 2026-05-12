@@ -3,7 +3,7 @@ import { Clock, Tag } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Listing, municipalityLabels } from "../lib/supabase";
-import svgPaths from "../imports/svg-j82t6p4shp";
+import svgPaths from "../imports/svg-paths";
 
 interface ListingCardProps {
   listing: Listing;
@@ -39,7 +39,7 @@ export function ListingCard({ listing }: ListingCardProps) {
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 20 20">
               <path d={svgPaths.p4906540} stroke="#B2B3B4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
             </svg>
-            <span>{listing.proposal_count || 0} challenges</span>
+            <span>{listing.proposal_count || 0} voorstellen</span>
           </div>
 
           {/* Divider */}
