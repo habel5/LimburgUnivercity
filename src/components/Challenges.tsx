@@ -10,13 +10,13 @@ import {
 } from "./ui/select";
 import { ListingCard } from "./ListingCard";
 import { categories, municipalities, Category, Municipality, Listing } from "../lib/supabase";
-import svgPaths from "../imports/svg-j82t6p4shp";
+import svgPaths from "../imports/svg-paths";
 import { useAuth } from "../lib/auth";
 import { LoginModal } from "./LoginModal";
 import { useNavigate } from "react-router";
-import { projectId, publicAnonKey } from '../config/env';
+import { api } from '../lib/api';
 import { toast } from 'sonner';
-import { Sparkles, Lightbulb, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Lightbulb, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function Challenges() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,28 +43,13 @@ export default function Challenges() {
 
   const fetchChallenges = async () => {
     setLoading(true);
-    
     const params = new URLSearchParams();
     if (debouncedSearchQuery) params.append('search', debouncedSearchQuery);
     if (selectedMunicipality !== 'all') params.append('municipality', selectedMunicipality);
     if (selectedCategory !== 'all') params.append('category', selectedCategory);
 
     try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges?${params}`,
-        {
-          headers: {
-            'apikey': publicAnonKey,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch challenges: ${response.status} - ${errorText}`);
-      }
-
-      const data = await response.json();
+      const data = await api.challenges(params);
       setListings(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching challenges:', error);
@@ -99,15 +84,10 @@ export default function Challenges() {
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-20 relative z-10">
         {/* Title Section with modern styling */}
         <div className="mb-10 md:mb-16">
-          <div className="inline-block mb-4">
-            <div className="vista-kicker">
-              <Sparkles className="w-5 h-5 text-[#0b6168]" />
-              <span className="text-[#0b6168] text-sm font-medium">Ontdek alle cases</span>
-            </div>
-          </div>
+
           <h1 className="vista-heading text-[#204448] font-bold text-[40px] sm:text-[50px] md:text-[60px] leading-[1.02] mb-6 uppercase">
             Cases van <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ec644a] to-[#0b6168]">
+            <span className="text-[#ec644a]">
               Limburgse Gemeenten
             </span>
           </h1>
@@ -181,18 +161,25 @@ export default function Challenges() {
           <div className="mt-6 pt-6 border-t border-[#0b6168]/10">
             <p className="text-[#325457] text-sm md:text-base flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[#0b6168]" />
-              {loading ? 'Laden...' : `${listings.length} ${listings.length === 1 ? 'case' : 'cases'} gevonden`}
+              {loading ? <span className="inline-block h-4 w-24 animate-pulse rounded bg-[#0b6168]/15 align-middle" /> : `${listings.length} ${listings.length === 1 ? 'case' : 'cases'} gevonden`}
             </p>
           </div>
         </div>
 
         {/* Listings Grid */}
         {loading ? (
-          <div className="text-center py-16 md:py-24">
-            <div className="inline-flex items-center gap-3 bg-white px-6 py-4 rounded-full shadow-[0_16px_34px_rgba(36,53,55,0.08)]">
-              <div className="w-5 h-5 border-2 border-[#0b6168] border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-[#204448] text-lg md:text-xl">Laden...</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-12 md:pb-20">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="bg-[linear-gradient(180deg,#ffffff_0%,#fff5ee_100%)] border border-[#ec644a]/10 rounded-[18px] shadow-[0_18px_36px_rgba(36,53,55,0.08)] p-5 md:p-6 animate-pulse">
+                <div className="h-7 bg-[#0b6168]/10 rounded-md mb-2 w-full" />
+                <div className="h-7 bg-[#0b6168]/10 rounded-md mb-4 w-3/4" />
+                <div className="h-5 bg-[#0b6168]/8 rounded mb-4 w-1/2" />
+                <div className="h-7 bg-[#ec644a]/15 rounded-[5px] mb-6 w-28" />
+                <div className="h-5 bg-gray-200 rounded mb-4 w-1/3" />
+                <div className="w-full h-[1px] bg-[#B2B3B4] mb-4" />
+                <div className="h-4 bg-gray-200 rounded w-2/5" />
+              </div>
+            ))}
           </div>
         ) : listings.length === 0 ? (
           <div className="text-center py-16 md:py-24">

@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { toast } from "sonner";
 import { useAuth } from "../lib/auth";
 import { projectId, publicAnonKey } from '../config/env';
+import { api, invalidate } from '../lib/api';
 import { categories, municipalities, municipalityLabels, Category, Municipality } from "../lib/supabase";
 import { ArrowLeft, Database, BarChart3, FileText, Pencil, Trash } from "lucide-react";
 
@@ -103,48 +104,13 @@ export default function AdminPanel() {
     try {
       setLoading(true);
 
-      const [challengesResponse, proposalsResponse] = await Promise.all([
-        fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges`, {
-          headers: {
-            'apikey': publicAnonKey,
-          },
-        }),
-        fetch(`https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`, {
-          headers: {
-            'apikey': publicAnonKey,
-          },
-        }),
+      const [challengesData, proposalsData] = await Promise.all([
+        api.adminChallenges() as Promise<Challenge[]>,
+        api.adminProposals() as Promise<Proposal[]>,
       ]);
 
-      let challengesData: Challenge[] = [];
-      let proposalsData: Proposal[] = [];
-
-      if (challengesResponse.ok) {
-        const parsedChallenges = await challengesResponse.json();
-        challengesData = Array.isArray(parsedChallenges) ? parsedChallenges : [];
-      } else {
-        const errorMessage = await getResponseErrorMessage(challengesResponse, 'Failed to fetch challenges');
-        if (challengesResponse.status === 401 && errorMessage.toLowerCase().includes('session')) {
-          handleExpiredSession();
-          return;
-        }
-        console.error('Failed to fetch challenges:', challengesResponse.status, errorMessage);
-      }
-
-      if (proposalsResponse.ok) {
-        const parsedProposals = await proposalsResponse.json();
-        proposalsData = Array.isArray(parsedProposals) ? parsedProposals : [];
-      } else {
-        const errorMessage = await getResponseErrorMessage(proposalsResponse, 'Failed to fetch proposals');
-        if (proposalsResponse.status === 401 && errorMessage.toLowerCase().includes('session')) {
-          handleExpiredSession();
-          return;
-        }
-        console.error('Failed to fetch proposals:', proposalsResponse.status, errorMessage);
-      }
-
-      setChallenges(challengesData);
-      setProposals(proposalsData);
+      setChallenges(Array.isArray(challengesData) ? challengesData : []);
+      setProposals(Array.isArray(proposalsData) ? proposalsData : []);
 
       const challengesByMunicipality: Record<string, number> = {};
       const challengesByCategory: Record<string, number> = {};
@@ -207,6 +173,8 @@ export default function AdminPanel() {
       }
 
       toast.success(`Case ${id} verwijderd`);
+      invalidate('/challenges');
+      invalidate('/stats');
       await fetchData();
     } catch (error) {
       console.error('Error deleting challenge:', error);
@@ -245,6 +213,8 @@ export default function AdminPanel() {
       }
 
       toast.success(`Voorstel ${proposalId} verwijderd`);
+      invalidate('/challenges');
+      invalidate('/proposals');
       await fetchData();
     } catch (error) {
       console.error('Error deleting proposal:', error);
@@ -316,6 +286,7 @@ export default function AdminPanel() {
 
       toast.success(`Case ${editingChallenge.id} bijgewerkt`);
       setEditingChallenge(null);
+      invalidate('/challenges');
       fetchData();
     } catch (error) {
       console.error("Error updating challenge:", error);
