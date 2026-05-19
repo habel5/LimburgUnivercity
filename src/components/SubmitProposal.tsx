@@ -16,6 +16,7 @@ export default function SubmitProposal() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { isAuthenticated, accessToken, user } = useAuth();
+  // Autorisatie: alleen de rollen 'onderwijs' en 'admin' mogen een voorstel indienen
   const canSubmitProposal = user?.role === 'onderwijs' || user?.role === 'admin';
   const [submitting, setSubmitting] = useState(false);
   const [challenge, setChallenge] = useState<Listing | null>(null);
@@ -34,6 +35,7 @@ export default function SubmitProposal() {
   }, [id]);
 
   useEffect(() => {
+    // Redirect niet-geauthenticeerde of onbevoegde gebruikers terug naar de case-pagina
     if (!isAuthenticated) {
       toast.error('Je moet inloggen om een voorstel in te dienen');
       navigate(`/listing/${id}`);
@@ -82,6 +84,7 @@ export default function SubmitProposal() {
     try {
       setSubmitting(true);
       
+      // Sessietoken meesturen in de X-Session-Token header — de server valideert rol en autorisatie
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/proposals`,
         {

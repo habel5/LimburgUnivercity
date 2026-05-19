@@ -26,13 +26,15 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
+      // Login via de auth store — bij succes worden gebruiker en access token opgeslagen in state en localStorage
       const success = await login(email, password);
-      
+
       if (success) {
         toast.success("Succesvol ingelogd!");
         onClose();
+        // Redirect naar de oorspronkelijke pagina als een redirectTo-param is meegegeven
         if (redirectTo) {
           navigate(redirectTo);
         }

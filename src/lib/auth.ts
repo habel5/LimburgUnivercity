@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { projectId, publicAnonKey } from '../config/env';
 
+// Drie gebruikersrollen — elke rol bepaalt welke acties een gebruiker mag uitvoeren
 export type UserRole = 'admin' | 'gemeente' | 'onderwijs';
 
 interface User {
@@ -20,12 +21,14 @@ interface AuthState {
   hasAnyRole: (roles: UserRole[]) => boolean;
 }
 
+// Globale auth-state via Zustand — de inlogstatus is beschikbaar in elk component zonder prop drilling
 export const useAuth = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
   accessToken: null,
   login: async (email: string, password: string) => {
     try {
+      // POST-verzoek naar de login-endpoint van de Supabase Edge Function
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/login`,
         {
@@ -48,7 +51,7 @@ export const useAuth = create<AuthState>((set) => ({
           needsSetup: data.needsSetup || false
         };
       }
-      
+
       if (data.access_token) {
         const nextUser = {
           id: data.user.id,
@@ -57,22 +60,23 @@ export const useAuth = create<AuthState>((set) => ({
           name: data.user.name,
         };
 
+        // Sla de gebruiker en het access token op in de Zustand store
         set({
           user: nextUser,
           isAuthenticated: true,
           accessToken: data.access_token,
         });
-        
-        // Store in localStorage for persistence
+
+        // Persisteer de sessie in localStorage zodat de gebruiker ingelogd blijft na een page refresh
         localStorage.setItem('auth-storage', JSON.stringify({
           user: nextUser,
           isAuthenticated: true,
           accessToken: data.access_token,
         }));
-        
+
         return true;
       }
-      
+
       return false;
     } catch (error) {
       console.error('Login error:', error);
@@ -81,13 +85,15 @@ export const useAuth = create<AuthState>((set) => ({
     }
   },
   logout: () => {
-    set({ 
-      user: null, 
+    // Reset de auth-state en verwijder de sessie uit localStorage
+    set({
+      user: null,
       isAuthenticated: false,
       accessToken: null,
     });
     localStorage.removeItem('auth-storage');
   },
+  // Hulpfuncties voor rolcontrole — worden gebruikt in componenten om toegang te bepalen
   hasRole: (role) => useAuth.getState().user?.role === role,
   hasAnyRole: (roles) => {
     const currentRole = useAuth.getState().user?.role;
@@ -95,7 +101,8 @@ export const useAuth = create<AuthState>((set) => ({
   },
 }));
 
-// Load from localStorage on initialization
+// Herstel de sessie uit localStorage bij het opstarten van de applicatie,
+// zodat de gebruiker ingelogd blijft na het herladen van de pagina
 const storedAuth = localStorage.getItem('auth-storage');
 if (storedAuth) {
   try {

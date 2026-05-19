@@ -58,6 +58,8 @@ async function sendEmail(to: string, subject: string, html: string) {
   }
 }
 
+// Wachtwoord hashen met SHA-256: het wachtwoord wordt omgezet naar een vaste versleutelde string.
+// De originele waarde is hier niet meer uit te herleiden — wachtwoorden worden nooit in plaintext opgeslagen.
 async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
@@ -89,6 +91,8 @@ function getAccountDefinitions() {
   ];
 }
 
+// Initialiseer de drie standaardaccounts (admin, gemeente, onderwijs) bij elke cold start.
+// Inloggegevens worden uitgelezen uit de omgevingsvariabelen op de server, niet hardcoded.
 async function initializeDefaultAccounts() {
   try {
     for (const definition of getAccountDefinitions()) {
@@ -97,6 +101,7 @@ async function initializeDefaultAccounts() {
       }
 
       const passwordHash = await hashPassword(definition.password);
+      // Bestaand account ophalen om het UUID en de aanmaakdatum stabiel te houden
       const existingAccount = await kv.get(`account:${definition.role}`);
 
       const account: AccountRecord = {
@@ -134,6 +139,7 @@ app.get("/make-server-09c2210b/health", (c) => c.json({ status: "ok" }));
 app.post("/make-server-09c2210b/login", async (c) => {
   try {
     const { email, password } = await c.req.json();
+    // Alle accounts ophalen uit de KV-store en zoeken op e-mailadres
     const accounts = (await kv.getByPrefix("account:")) as AccountRecord[];
     const matchedAccount = accounts.find((account) => account?.email === email);
 
@@ -141,11 +147,14 @@ app.post("/make-server-09c2210b/login", async (c) => {
       return c.json({ error: "Ongeldige inloggegevens" }, 401);
     }
 
+    // Het ingevoerde wachtwoord hashen en vergelijken met de opgeslagen hash —
+    // als de hashes niet overeenkomen, is het wachtwoord onjuist
     const passwordHash = await hashPassword(password);
     if (passwordHash !== matchedAccount.passwordHash) {
       return c.json({ error: "Ongeldige inloggegevens" }, 401);
     }
 
+    // Sessie aanmaken: genereer een uniek token en sla het op met een vervaldatum van 24 uur
     const sessionToken = `token_${crypto.randomUUID()}`;
     await kv.set(`session:${sessionToken}`, {
       user: {
@@ -247,6 +256,8 @@ app.get("/make-server-09c2210b/stats", async (c) => {
   }
 });
 
+// Sessievalidatie: controleer of het X-Session-Token header aanwezig en geldig is.
+// Een verlopen sessie wordt automatisch uit de database verwijderd.
 async function requireSession(c: any) {
   const sessionToken = c.req.header("X-Session-Token");
   if (!sessionToken) return { error: "Unauthorized", status: 401 };
@@ -262,6 +273,8 @@ async function requireSession(c: any) {
   return { session };
 }
 
+// Rolgebaseerde autorisatie: controleer of de ingelogde gebruiker een van de vereiste rollen heeft.
+// Bij onvoldoende rechten geeft de server een 403 Forbidden terug.
 async function requireRoles(c: any, roles: UserRole[]) {
   const auth = await requireSession(c);
   if ("error" in auth) return auth;
@@ -276,10 +289,12 @@ async function requireRoles(c: any, roles: UserRole[]) {
 
 app.post("/make-server-09c2210b/proposals", async (c) => {
   try {
+    // Autorisatie: alleen rollen 'onderwijs' en 'admin' mogen een voorstel indienen
     const auth = await requireRoles(c, ["onderwijs", "admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
     const body = await c.req.json();
+    // Oplopende teller als ID — eenvoudig en leesbaar in de KV-store
     let counter = (await kv.get("counter:proposals")) || 0;
     counter += 1;
     await kv.set("counter:proposals", counter);
@@ -309,6 +324,7 @@ app.post("/make-server-09c2210b/proposals", async (c) => {
 
 app.post("/make-server-09c2210b/challenges", async (c) => {
   try {
+    // Autorisatie: alleen rollen 'gemeente' en 'admin' mogen een nieuwe case aanmaken
     const auth = await requireRoles(c, ["gemeente", "admin"]);
     if ("error" in auth) return c.json({ error: auth.error }, auth.status);
 
@@ -334,6 +350,7 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
 
     await kv.set(`challenge:${id}`, challenge);
 
+    // E-mailnotificaties via Resend: admin ontvangt een melding, de indiener een bevestiging
     const adminEmail = Deno.env.get("ADMIN_EMAIL");
     const categoryNames: Record<string, string> = {
       duurzaamheid: "Duurzaamheid",
@@ -424,6 +441,7 @@ app.post("/make-server-09c2210b/challenges", async (c) => {
   }
 });
 
+// PUT-endpoint voor het bewerken van een bestaande case — alleen toegankelijk voor de rol 'admin'
 app.put("/make-server-09c2210b/challenges/:id", async (c) => {
   try {
     const auth = await requireRoles(c, ["admin"]);
@@ -455,6 +473,8 @@ app.put("/make-server-09c2210b/challenges/:id", async (c) => {
   }
 });
 
+// DELETE-endpoint voor het verwijderen van een case — alleen toegankelijk voor de rol 'admin'.
+// Cascade delete: alle gekoppelde voorstellen worden meegenomen in de verwijdering.
 app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
   try {
     const auth = await requireRoles(c, ["admin"]);
@@ -464,6 +484,7 @@ app.delete("/make-server-09c2210b/challenges/:id", async (c) => {
     const challenge = await kv.get(`challenge:${id}`);
     if (!challenge) return c.json({ error: "Challenge not found" }, 404);
 
+    // Verwijder eerst alle bijbehorende voorstellen om orphaned records te voorkomen
     const allProposals = await kv.getByPrefix("proposal:");
     const relatedProposals = allProposals.filter(
       (item) => item && typeof item === "object" && item.challenge_id === id && item.id,

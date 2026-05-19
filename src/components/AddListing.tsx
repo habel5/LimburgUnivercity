@@ -22,6 +22,7 @@ import { invalidate } from '../lib/api';
 export default function AddListing() {
   const navigate = useNavigate();
   const { isAuthenticated, user, accessToken } = useAuth();
+  // Autorisatie: alleen de rollen 'gemeente' en 'admin' mogen een case aanmaken
   const canCreateCase = user?.role === 'gemeente' || user?.role === 'admin';
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,6 +35,7 @@ export default function AddListing() {
   });
 
   useEffect(() => {
+    // Redirect niet-geauthenticeerde of onbevoegde gebruikers direct weg van deze pagina
     if (!isAuthenticated) {
       toast.error('Je moet inloggen om een case te plaatsen');
       navigate('/');
@@ -41,6 +43,7 @@ export default function AddListing() {
       toast.error('Alleen gemeente- en adminaccounts kunnen cases plaatsen');
       navigate('/cases');
     } else if (user) {
+      // Prefill het e-mailadres vanuit de actieve sessie
       setFormData(prev => ({
         ...prev,
         email: user.email,
@@ -89,6 +92,7 @@ export default function AddListing() {
       await response.json();
       
       toast.success('Case succesvol geplaatst!');
+      // Cache invalideren voor challenges en stats zodat de nieuwe case direct zichtbaar is
       invalidate('/challenges');
       invalidate('/stats');
       setTimeout(() => {

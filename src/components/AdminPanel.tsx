@@ -56,6 +56,7 @@ interface ChallengeFormState {
 export default function AdminPanel() {
   const navigate = useNavigate();
   const { isAuthenticated, accessToken, logout, user } = useAuth();
+  // Toegangscontrole: alleen de rol 'admin' heeft toegang tot dit paneel
   const isAdmin = user?.role === 'admin';
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -104,6 +105,7 @@ export default function AdminPanel() {
     try {
       setLoading(true);
 
+      // Parallel ophalen met Promise.all — beide requests lopen tegelijk voor een kortere laadtijd
       const [challengesData, proposalsData] = await Promise.all([
         api.adminChallenges() as Promise<Challenge[]>,
         api.adminProposals() as Promise<Proposal[]>,
@@ -112,6 +114,7 @@ export default function AdminPanel() {
       setChallenges(Array.isArray(challengesData) ? challengesData : []);
       setProposals(Array.isArray(proposalsData) ? proposalsData : []);
 
+      // Statistieken client-side berekenen op basis van de opgehaalde data
       const challengesByMunicipality: Record<string, number> = {};
       const challengesByCategory: Record<string, number> = {};
       let totalProposals = 0;
@@ -151,7 +154,8 @@ export default function AdminPanel() {
 
     try {
       setDeletingId(id);
-      
+
+      // DELETE-request naar de server — bijbehorende voorstellen worden server-side mee verwijderd (cascade)
       const response = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-09c2210b/challenges/${id}`,
         {
