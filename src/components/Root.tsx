@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router";
 import { ArrowRight, LayoutGrid, LogOut, Menu, Plus } from "lucide-react";
 import imgWhite12 from "../assets/logo-limburg.png";
-import logoVista from "../assets/logo-vista.png";
+import logoVista from "../assets/logo-vista-white.png";
 import { useAuth } from "../lib/auth";
 import { LoginModal } from "./LoginModal";
 import { useEffect, useState } from "react";
@@ -53,7 +53,7 @@ export default function Root() {
             <Link to="/" className="flex shrink-0 items-center gap-3">
               <img src={imgWhite12} alt="Limburg University" className="h-[36px] w-auto brightness-0 invert" />
               <span className="text-white/30 text-lg font-light select-none">×</span>
-              <img src={logoVista} alt="Vista College" className="h-[28px] w-auto brightness-0 invert" />
+              <img src={logoVista} alt="Vista College" className="h-[28px] w-auto" />
             </Link>
 
             <nav className="flex h-full items-center gap-1">
@@ -126,7 +126,7 @@ export default function Root() {
             <Link to="/" className="flex items-center gap-3">
               <img src={imgWhite12} alt="Limburg University" className="h-[32px] w-auto brightness-0 invert" />
               <span className="text-white/30 text-lg font-light select-none">×</span>
-              <img src={logoVista} alt="Vista College" className="h-[25px] w-auto brightness-0 invert" />
+              <img src={logoVista} alt="Vista College" className="h-[25px] w-auto" />
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
